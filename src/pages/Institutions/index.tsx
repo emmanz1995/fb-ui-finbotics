@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import type { FC } from 'react';
+import type { FC, MouseEvent } from 'react';
 import { InstitutionGrid } from './styles';
 import Layout from '../../components/template';
 import {
@@ -24,6 +24,9 @@ interface InstitutionProps {
 const Institutions: FC = () => {
   const [institutions, setInstitutions] = useState<InstitutionProps[]>([]);
   const [institutionId, setInstitutionId] = useState('');
+  // this is to capture index for current institutions card
+  const [currentIndex, setCurrentIndex] = useState(-1);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     setInstitutions(institutionsMock);
@@ -31,13 +34,21 @@ const Institutions: FC = () => {
 
   const grabInstitutionId = (
     bankId: string,
+    cardIndex: number,
     evt: React.MouseEvent<HTMLButtonElement>
   ) => {
     evt.preventDefault();
     setInstitutionId(bankId);
+    const institutionName = institutions.find(
+      institution => institution.id === bankId
+    )?.name;
+    setMessage(`You have selected the ${institutionName}`);
+    setCurrentIndex(cardIndex);
   };
 
-  const handleConnectToInstitution = async (evt: any) => {
+  const handleConnectToInstitution = (
+    evt: MouseEvent<HTMLButtonElement>
+  ) => {
     evt.preventDefault();
     const form = document.createElement('form');
     form.method = 'POST';
@@ -48,14 +59,10 @@ const Institutions: FC = () => {
     input.type = 'hidden';
     input.name = 'institutionId';
 
-    console.log(institutionId);
-
     form.appendChild(input);
     document.body.appendChild(form);
     form.submit();
   };
-
-  console.log(institutionId);
 
   return (
     <Layout>
@@ -66,15 +73,18 @@ const Institutions: FC = () => {
             Select your bank to securely connect your accounts. We use
             bank-level security to keep your information safe.
           </Subtitle>
+          {message && <p>{message}</p>}
         </HeaderContent>
         <InstitutionGrid>
-          {institutions.map((institution: InstitutionProps) => (
+          {institutions.map((institution: InstitutionProps, index: number) => (
             <InstitutionCard
               key={institution.id}
               institution={institution}
               grabInstitutionId={grabInstitutionId}
               handleConnectToInstitution={handleConnectToInstitution}
               institutionId={institutionId}
+              cardIndex={index}
+              currentIndex={currentIndex}
             />
           ))}
         </InstitutionGrid>

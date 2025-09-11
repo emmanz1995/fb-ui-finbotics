@@ -81,6 +81,10 @@ interface Props {
       body: string;
       heading: string;
     };
+    fonts: {
+      body: string;
+      heading: string;
+    };
     fontSizes: {
       xs: string;
       sm: string;

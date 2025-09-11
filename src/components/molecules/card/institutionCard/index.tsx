@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC, MouseEvent } from 'react';
 import {
   Card,
   InstitutionLogo,
@@ -21,15 +21,19 @@ const InstitutionCard: FC<{
   institution: InstitutionProps;
   grabInstitutionId: (
     id: string,
-    evt: React.MouseEvent<HTMLButtonElement>
+    cardIndex: number,
+    evt: MouseEvent<HTMLButtonElement>
   ) => void;
-  handleConnectToInstitution: (evt: any) => void;
-  institutionId: string;
+  handleConnectToInstitution: (evt: MouseEvent<HTMLButtonElement>) => void;
+  institutionId?: string;
+  cardIndex: number;
+  currentIndex: number;
 }> = ({
   institution,
   grabInstitutionId,
   handleConnectToInstitution,
-  institutionId,
+  cardIndex,
+  currentIndex,
 }) => (
   <Card>
     <InstitutionLogo alt="logo" src={institution?.logo} />
@@ -37,19 +41,25 @@ const InstitutionCard: FC<{
     <InstitutionDescription>
       {institution.bic} | {institution.countries.join(', ')}
     </InstitutionDescription>
-    <Button
-      fullWidth="full"
-      variant="primary"
-      onClick={(evt: React.MouseEvent<HTMLButtonElement>) => {
-        setTimeout(() => grabInstitutionId(institution.id, evt), 5000);
-      }}
-    >
-      Select Institution
-    </Button>
-
-    <Button variant="outline" onClick={handleConnectToInstitution}>
-      Institution Connect
-    </Button>
+    {cardIndex === currentIndex ? (
+      <Button
+        variant="outline"
+        fullWidth="full"
+        onClick={handleConnectToInstitution}
+      >
+        Institution Connect
+      </Button>
+    ) : (
+      <Button
+        fullWidth="full"
+        variant="primary"
+        onClick={(evt: React.MouseEvent<HTMLButtonElement>) => {
+          grabInstitutionId(institution.id, cardIndex, evt);
+        }}
+      >
+        Select Institution
+      </Button>
+    )}
   </Card>
 );
 

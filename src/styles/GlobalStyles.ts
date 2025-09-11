@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+
 export const GlobalStyles = createGlobalStyle`
   * {
     box-sizing: border-box;
@@ -17,10 +18,10 @@ export const GlobalStyles = createGlobalStyle`
     line-height: 1.2;
   }
   a {
-    color: ${props => props.theme.colors.primary};
+    color: ${props => props.theme.colors.secondary};
     text-decoration: none;
     &:hover {
-      text-decoration: underline;
+      color: ${props => props.theme.colors.primary};
     }
   }
   button {

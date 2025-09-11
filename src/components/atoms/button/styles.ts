@@ -95,8 +95,12 @@ export const StyledButton = styled.button<{
   border-radius: 0.25rem;
   transition: 0.2s;
   cursor: pointer;
-  ${props => chooseSize(props.size)}
-  ${props => chooseVariant(props.variant, props.theme)}
+  ${({ size }) => {
+    return chooseSize(size);
+  }}
+  ${({ variant, theme }) => {
+    return chooseVariant(variant, theme);
+  }}
   width: ${props => (props.fullWidth === 'full' ? '100%' : 'auto')};
 `;
 

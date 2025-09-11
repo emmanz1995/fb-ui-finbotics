@@ -6,6 +6,7 @@ import {
   TrendingUpIcon,
   AlertCircleIcon,
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import Layout from '../../components/template';
 import Button from '../../components/atoms/button';
 import {
@@ -29,7 +30,7 @@ import {
 } from './styles';
 import { accountsConnector } from '../../connector';
 import AccountCard from '../../components/molecules/card/accountCard';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 export interface AccountDetailsProps {
   id: string;
@@ -45,12 +46,28 @@ const AccountsDashboard: FC = () => {
     []
   );
   // const [balances, setBalances] = useState([]);
+  const navigate = useNavigate();
 
   const fetchAccountDetails = async () => {
     const details: AccountDetailsProps[] =
       await accountsConnector.getAccountDetails();
     setAccountDetails(details);
   };
+
+  // TODO: to work on this part after I have done some modifications in the backend 😊
+  // const fetchBalancesByAccountId = async () => {
+  //   const details =
+  //     await accountsConnector.getBalances()
+  //   setAccountDetails(details);
+  // };
+
+  // const mapBalancesToAccount = async (accountId: string) => {
+  //   const balanceToDetails = balances.map((balance) => {
+  //     if (accountId === balance.accountDetailsId) {
+  //       return {}
+  //     }
+  //   })
+  // }
 
   useEffect(() => {
     fetchAccountDetails();
@@ -65,7 +82,11 @@ const AccountsDashboard: FC = () => {
               Manage all your connected bank accounts in one place
             </Subtitle>
           </HeaderContent>
-          <Button variant="primary" size="md">
+          <Button
+            variant="primary"
+            size="md"
+            onClick={() => navigate('/onboard-institution')}
+          >
             Connect Bank
           </Button>
         </PageHeader>
@@ -118,7 +139,10 @@ const AccountsDashboard: FC = () => {
             <ConnectBankDescription>
               Add another bank account to get a complete view of your finances
             </ConnectBankDescription>
-            <Button as={Link} variant="primary">
+            <Button
+              variant="primary"
+              onClick={() => navigate('/onboard-institution')}
+            >
               Connect Bank
             </Button>
           </ConnectBankCard>

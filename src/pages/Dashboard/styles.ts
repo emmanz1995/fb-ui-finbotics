@@ -10,6 +10,12 @@ export const GridLayout = styled.div`
   }
 `;
 
+export const HeaderContent = styled.div<ThemeProps>`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
 export const AccountDetailsContainer = styled.div<ThemeProps>`
   padding: 1.5rem;
   border-radius: ${props => props.theme.radii.lg};

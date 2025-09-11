@@ -1,12 +1,8 @@
 import { useState, useEffect } from 'react';
 import type { FC } from 'react';
-import { useParams } from 'react-router-dom';
-import {
-  HeaderContent,
-  Title,
-  Subtitle,
-  ContentContainer,
-} from '../../styles/common';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
+import { Title, Subtitle, ContentContainer } from '../../styles/common';
 import Layout from '../../components/template';
 import { accountsConnector } from '../../connector';
 import {
@@ -18,29 +14,68 @@ import {
   BalanceInfo,
   BalanceAmount,
   GridLayout,
+  HeaderContent,
 } from './styles';
 import { extractAccountNumber } from '../../helpers';
+import Button from '../../components/atoms/button';
+
+interface ResourceProps {
+  id: string;
+  amount: string;
+  currency: string;
+  details?: string;
+  type: string;
+  metadata: object;
+  accountDetailsId: string;
+}
+interface TransactionsProps {
+  transactionsPerPage: number;
+  totalPages: number;
+  page: number;
+  transactions: ResourceProps[];
+}
+interface DetailProps {
+  id: string;
+  resourceId: string;
+  iban?: string;
+  scan: string;
+  currency: string;
+  ownerName: string;
+}
 
 const Dashboard: FC = () => {
-  const [transactions, setTransactions] = useState([]);
-  const [balances, setBalances] = useState([]);
-  const [detail, setDetail] = useState({});
+  const [transactions, setTransactions] = useState<TransactionsProps>({
+    transactionsPerPage: 0,
+    totalPages: 0,
+    page: 0,
+    transactions: [],
+  });
+  const [balances, setBalances] = useState<ResourceProps[]>([]);
+  const [detail, setDetail] = useState<DetailProps>({
+    id: '',
+    resourceId: '',
+    iban: '',
+    scan: '',
+    currency: '',
+    ownerName: '',
+  });
 
+  const navigate = useNavigate();
   const params = useParams();
   const accountId = params.accountId as string;
 
   useEffect(() => {
     const handleFetchAccountData = async () => {
-      const [transactions, balances] = await Promise.all([
+      const [transactionsRes, balancesRes] = await Promise.all([
         await accountsConnector.getTransactions(accountId, {
           limit: 5,
-          currentPage: 1,
+          currentPage: 3,
         }),
         await accountsConnector.getBalances(accountId),
       ]);
 
-      setTransactions(transactions);
-      setBalances(balances);
+      setTransactions(transactionsRes);
+      setBalances(balancesRes);
     };
 
     handleFetchAccountData();
@@ -58,14 +93,15 @@ const Dashboard: FC = () => {
     getAccountDetail();
   }, [accountId]);
 
-  const { accountNumber, sortCode } = extractAccountNumber(
-    detail?.scan as string
-  );
+  const { accountNumber } = extractAccountNumber(detail?.scan);
 
   return (
     <Layout>
       <ContentContainer>
         <HeaderContent>
+          <Button variant="ghost" onClick={() => navigate('/')}>
+            <ArrowLeft size={20} />
+          </Button>
           <Title>Account Details</Title>
         </HeaderContent>
         <AccountDetailsContainer>
