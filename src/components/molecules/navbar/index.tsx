@@ -1,0 +1,100 @@
+import {
+  HomeIcon,
+  PlusCircle,
+  Wallet,
+  // ArrowLeftIcon,
+  // CreditCardIcon,
+  // AlertCircleIcon,
+  User2Icon,
+  // LogOutIcon,
+} from 'lucide-react';
+import styled from 'styled-components';
+// import { useNavigate } from 'react-router-dom';
+
+const Nav = styled.nav`
+  width: 100%;
+  background-color: ${props => props.theme?.colors?.card};
+  padding: 10px;
+`;
+const NavMainSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
+const UnorderedList = styled.ul`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+`;
+const List = styled.li`
+  list-style: none;
+`;
+const HyperLink = styled.a`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  gap: 2px;
+`;
+
+const Logo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${(props: { theme: { spacing: number } }) => props?.theme?.spacing?.[2]};
+`;
+const LogoText = styled.h1`
+  font-size: 1.25rem;
+  font-weight: 600;
+`;
+
+const Navbar = () => {
+  // const navigate = useNavigate();
+
+  return (
+    <Nav>
+      <NavMainSection>
+        <Logo>
+          <Wallet
+            className="w-8 h-8"
+            style={{
+              color: 'rgb(106,85,250)',
+            }}
+          />
+          <LogoText>Finbotics</LogoText>
+        </Logo>
+        <UnorderedList>
+          <List>
+            <HyperLink href="/dashboard/123">
+              <HomeIcon size={15} /> Dashboard
+            </HyperLink>
+          </List>
+          <List>
+            <HyperLink href="/onboard-institution">
+              <PlusCircle size={15} /> Connect Bank
+            </HyperLink>
+          </List>
+          <List>
+            <HyperLink href="/profile/:id">
+              <User2Icon size={15} /> Profile
+            </HyperLink>
+          </List>
+          <List>
+            <HyperLink href="/">
+              <User2Icon size={15} /> Emmanuel Okuchukwu
+            </HyperLink>
+          </List>
+          <List>
+            {/* <HyperLink href="" onClick={handleLogout}>
+              <LogOutIcon size={15} /> Logout
+            </HyperLink> */}
+          </List>
+        </UnorderedList>
+      </NavMainSection>
+    </Nav>
+  );
+};
+
+export default Navbar;
