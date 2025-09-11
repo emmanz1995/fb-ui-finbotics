@@ -17,7 +17,7 @@ import type { AccountDetailsProps } from '../../../../pages/AccountsDashboard';
 import { CreditCardIcon } from 'lucide-react';
 
 const Card: FC<{ detail: AccountDetailsProps }> = ({ detail }) => (
-  <AccountCard to="/">
+  <AccountCard to={`/dashboard/${detail.id}`}>
     <AccountHeader>
       <AccountInfo>
         <AccountName>{detail.currency} Account</AccountName>

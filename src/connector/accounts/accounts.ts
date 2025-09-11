@@ -38,6 +38,22 @@ export const getAccountDetails = async () => {
   }
 };
 
+export const getAccountDetailsByAccountId = async (accountId: string) => {
+  try {
+    const response = await axios({
+      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/account`,
+      method: 'GET',
+      params: {
+        accountId,
+      },
+    });
+
+    return response.data;
+  } catch (err: any) {
+    throw new Error(err.message);
+  }
+};
+
 export const getBalances = async (accountId: string) => {
   try {
     const response = await axios({

@@ -30,7 +30,7 @@ const UnorderedList = styled.ul`
   gap: 15px;
 `;
 const List = styled.li`
-  list-style: none;
+  list-style: none !important;
 `;
 const HyperLink = styled.a`
   display: flex;
@@ -67,7 +67,7 @@ const Navbar = () => {
         </Logo>
         <UnorderedList>
           <List>
-            <HyperLink href="/dashboard/123">
+            <HyperLink href="/">
               <HomeIcon size={15} /> Dashboard
             </HyperLink>
           </List>
