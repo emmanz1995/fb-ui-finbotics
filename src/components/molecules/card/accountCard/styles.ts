@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { ThemeProps } from '../../../../styles/themes';
 
-export const AccountCard = styled(Link)`
+export const AccountCard = styled(Link)<ThemeProps>`
   background-color: white;
-  border-radius: ${props => props.theme.radii.lg};
-  box-shadow: ${props => props.theme.shadows.md};
+  border-radius: ${props => props.theme.radii?.lg};
+  box-shadow: ${props => props.theme.shadows?.md};
   padding: 1.5rem;
   transition:
     transform 0.2s ease,
@@ -13,7 +14,7 @@ export const AccountCard = styled(Link)`
   color: inherit;
   &:hover {
     transform: translateY(-4px);
-    box-shadow: ${props => props.theme.shadows.lg};
+    box-shadow: ${props => props.theme.shadows?.lg};
   }
 `;
 export const AccountHeader = styled.div`
@@ -23,17 +24,17 @@ export const AccountHeader = styled.div`
   margin-bottom: 1.5rem;
 `;
 export const AccountInfo = styled.div``;
-export const AccountName = styled.h3`
+export const AccountName = styled.h3<ThemeProps>`
   font-size: 1.25rem;
   font-weight: 600;
   color: ${props => props.theme.colors.text.primary};
   margin-bottom: 0.25rem;
 `;
-export const AccountNumber = styled.p`
+export const AccountNumber = styled.p<ThemeProps>`
   font-size: 0.875rem;
   color: ${props => props.theme.colors.text.secondary};
 `;
-export const AccountIcon = styled.div`
+export const AccountIcon = styled.div<ThemeProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,23 +47,23 @@ export const AccountIcon = styled.div`
 export const BalanceSection = styled.div`
   margin-top: 1rem;
 `;
-export const BalanceLabel = styled.p`
+export const BalanceLabel = styled.p<ThemeProps>`
   font-size: 0.875rem;
   color: ${props => props.theme.colors.text.secondary};
   margin-bottom: 0.25rem;
 `;
-export const BalanceAmount = styled.h4`
+export const BalanceAmount = styled.h4<ThemeProps>`
   font-size: 1.75rem;
   font-weight: 700;
   color: ${props => props.theme.colors.text.primary};
 `;
-export const Currency = styled.span`
+export const Currency = styled.span<ThemeProps>`
   font-size: 1rem;
   font-weight: 400;
   color: ${props => props.theme.colors.text.secondary};
   margin-right: 0.25rem;
 `;
-export const AccountFooter = styled.div`
+export const AccountFooter = styled.div<ThemeProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -70,7 +71,7 @@ export const AccountFooter = styled.div`
   padding-top: 1rem;
   border-top: 1px solid ${props => props.theme.colors.border};
 `;
-export const AccountOwner = styled.p`
+export const AccountOwner = styled.p<ThemeProps>`
   font-size: 0.875rem;
   color: ${props => props.theme.colors.text.secondary};
 `;

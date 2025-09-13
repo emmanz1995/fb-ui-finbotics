@@ -69,7 +69,7 @@ const Dashboard: FC = () => {
       const [transactionsRes, balancesRes] = await Promise.all([
         await accountsConnector.getTransactions(accountId, {
           limit: 5,
-          currentPage: 3,
+          currentPage: 1,
         }),
         await accountsConnector.getBalances(accountId),
       ]);
