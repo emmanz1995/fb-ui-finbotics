@@ -45,7 +45,6 @@ const AccountsDashboard: FC = () => {
   const [accountDetails, setAccountDetails] = useState<AccountDetailsProps[]>(
     []
   );
-  // const [balances, setBalances] = useState([]);
   const navigate = useNavigate();
 
   const fetchAccountDetails = async () => {
@@ -55,23 +54,28 @@ const AccountsDashboard: FC = () => {
   };
 
   // TODO: to work on this part after I have done some modifications in the backend 😊
-  // const fetchBalancesByAccountId = async () => {
-  //   const details =
-  //     await accountsConnector.getBalances()
-  //   setAccountDetails(details);
-  // };
+  const fetchBalancesByAccountId = async (accountId: string) => {
+    const balances = await accountsConnector.getBalances(accountId);
+    return balances;
+  };
 
-  // const mapBalancesToAccount = async (accountId: string) => {
-  //   const balanceToDetails = balances.map((balance) => {
-  //     if (accountId === balance.accountDetailsId) {
-  //       return {}
-  //     }
-  //   })
-  // }
+  const mapBalancesToAccount = async (accountId: string) => {
+    const balanceToDetails = accountDetails.map(async detail => {
+      if (accountId === detail.id) {
+        const balance = await fetchBalancesByAccountId(detail.id);
+        return {
+          balanceAmount: balance[0].amount,
+        };
+      }
+    });
+
+    return balanceToDetails;
+  };
 
   useEffect(() => {
     fetchAccountDetails();
   }, []);
+
   return (
     <Layout>
       <ContentContainer>

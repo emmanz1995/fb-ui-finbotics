@@ -46,9 +46,7 @@ const Institutions: FC = () => {
     setCurrentIndex(cardIndex);
   };
 
-  const handleConnectToInstitution = (
-    evt: MouseEvent<HTMLButtonElement>
-  ) => {
+  const handleConnectToInstitution = (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     const form = document.createElement('form');
     form.method = 'POST';
