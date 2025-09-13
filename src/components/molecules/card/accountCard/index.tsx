@@ -38,7 +38,7 @@ const Card: FC<{ detail: AccountDetailsProps }> = ({ detail }) => (
       <BalanceLabel>Current Balance</BalanceLabel>
       <BalanceAmount>
         <Currency>£</Currency>
-        {parseFloat('45543').toFixed(2)}
+        {parseFloat(detail.balance[detail.id].amount).toFixed(2)}
       </BalanceAmount>
     </BalanceSection>
     <AccountFooter>
