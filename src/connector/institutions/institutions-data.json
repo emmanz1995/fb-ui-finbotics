@@ -64,5 +64,27 @@
     ],
     "logo": "https://storage.googleapis.com/gc-prd-institution_icons-production/UK/PNG/santander.png",
     "max_access_valid_for_days": "90"
-  }
+  },
+  {
+        "id": "NATWEST_NWBKGB2L",
+        "name": "Natwest",
+        "bic": "NWBKGB2L",
+        "transaction_total_days": "730",
+        "countries": [
+            "GB"
+        ],
+        "logo": "https://storage.googleapis.com/gc-prd-institution_icons-production/UK/PNG/natwest.png",
+        "max_access_valid_for_days": "90"
+    },
+    {
+        "id": "NATWEST_INTERNATONAL_RBOSGIGI",
+        "name": "Natwest International",
+        "bic": "RBOSGIGI",
+        "transaction_total_days": "730",
+        "countries": [
+            "GB"
+        ],
+        "logo": "https://storage.googleapis.com/gc-prd-institution_icons-production/UK/PNG/natwest.png",
+        "max_access_valid_for_days": "90"
+    }
 ]

@@ -8,6 +8,7 @@ export const GridLayout = styled.div`
   @media (max-width: 992px) {
     grid-template-columns: 1fr;
   }
+  margin-top: 1.5rem;
 `;
 
 export const HeaderContent = styled.div<ThemeProps>`
@@ -48,6 +49,57 @@ export const AccountDetail = styled.div<ThemeProps>`
   border-radius: ${props => props.theme.radii.lg};
 `;
 
+export const SpendingOverviewContainer = styled.div<ThemeProps>`
+  box-shadow: ${props => props.theme.shadows.lg};
+  background-color: ${props => props.theme.colors.text.white};
+  padding: 1.5rem;
+  height: 400px;
+  border-radius: ${props => props.theme.radii.lg};
+  width: 100%;
+  margin-bottom: 1.5rem;
+`;
+export const SpendingPredicationContainer = styled.div<ThemeProps>`
+  box-shadow: ${props => props.theme.shadows.lg};
+  background-color: ${props => props.theme.colors.text.white};
+  padding: 1.5rem;
+  height: 350px;
+  border-radius: ${props => props.theme.radii.lg};
+  margin-bottom: 1.5rem;
+`;
+export const RecentTransactionContainer = styled.div<ThemeProps>`
+  box-shadow: ${props => props.theme.shadows.lg};
+  background-color: ${props => props.theme.colors.text.white};
+  padding: 1.5rem;
+  height: 500px;
+  border-radius: ${props => props.theme.radii.lg};
+`;
+export const FinancialTipsContainer = styled.div<ThemeProps>`
+  box-shadow: ${props => props.theme.shadows.lg};
+  background-color: ${props => props.theme.colors.text.white};
+  padding: 1.5rem;
+  height: 400px;
+  border-radius: ${props => props.theme.radii.lg};
+`;
+export const HeaderContainer = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 0.5rem;
+`;
+export const GroupedRows = styled.div`
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: 100%;
+  @media (max-width: 992px) {
+    flex-direction: column;
+  }
+`;
+export const FirstColumn = styled.div``;
+export const SecondColumn = styled.div``;
+
+// export const AccountDetailsContainer = styled.div``
 // export const AccountDetailsContainer = styled.div``
 // export const AccountDetailsContainer = styled.div``
 // export const AccountDetailsContainer = styled.div``

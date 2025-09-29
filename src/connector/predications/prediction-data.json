@@ -1,0 +1,29 @@
+[
+  {
+    "id": "47e511d8-7698-435f-a511-39d210901481",
+    "accountId": "b490aa2c-02bb-4536-9d51-c2be353f5e4e",
+    "frequentStores": [
+      "Foodlink",
+      "Deliveroo"
+    ], 
+    "notableExpenses": [
+      {
+        "amount": 45.18,
+        "date": "2025-06-11",
+        "description": "Deliveroo"
+      },
+      {
+        "amount": 29.65,
+        "date": "2025-06-10",
+        "description": "Deliveroo"
+      },
+      {
+        "amount": 9.83,
+        "date": "2025-06-11",
+        "description": "Deliveroo"
+      }
+    ],
+    "predictedSpendingNextWeek": 149.42,
+    "weeklyAverage": 149.42
+  }
+]

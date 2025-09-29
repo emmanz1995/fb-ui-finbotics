@@ -1,7 +1,18 @@
 import { useState, useEffect } from 'react';
 import type { FC } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import {
+  ArrowLeft,
+  // ArrowLeftIcon,
+  CreditCardIcon,
+  // CalendarIcon,
+  TrendingUpIcon,
+  // TrendingDownIcon,
+  // AlertCircleIcon,
+  // ShoppingBagIcon,
+  BarChartIcon,
+  LightbulbIcon,
+} from 'lucide-react';
 import { Title, Subtitle, ContentContainer } from '../../styles/common';
 import Layout from '../../components/template';
 import { accountsConnector } from '../../connector';
@@ -15,6 +26,13 @@ import {
   BalanceAmount,
   GridLayout,
   HeaderContent,
+  SpendingOverviewContainer,
+  SpendingPredicationContainer,
+  RecentTransactionContainer,
+  FinancialTipsContainer,
+  HeaderContainer,
+  FirstColumn,
+  SecondColumn,
 } from './styles';
 import { extractAccountNumber } from '../../helpers';
 import Button from '../../components/atoms/button';
@@ -138,12 +156,34 @@ const Dashboard: FC = () => {
           </AccountDetailsSection>
         </AccountDetailsContainer>
         <GridLayout>
-          {/* <div>efkj</div>
-            <div>efkj</div>
-            <div>efkj</div>
-            <div>efkj</div>
-            <div>efkj</div>
-            <div>efkj</div> */}
+          <FirstColumn>
+            <SpendingOverviewContainer>
+              <HeaderContainer>
+                <BarChartIcon />
+                <h3>Spending Overview</h3>
+              </HeaderContainer>
+            </SpendingOverviewContainer>
+            <FinancialTipsContainer>
+              <HeaderContainer>
+                <CreditCardIcon />
+                <h3>Financial Tips</h3>
+              </HeaderContainer>
+            </FinancialTipsContainer>
+          </FirstColumn>
+          <SecondColumn>
+            <SpendingPredicationContainer>
+              <HeaderContainer>
+                <TrendingUpIcon />
+                <h3>Spending Prediction</h3>
+              </HeaderContainer>
+            </SpendingPredicationContainer>
+            <RecentTransactionContainer>
+              <HeaderContainer>
+                <LightbulbIcon />
+                <h3>Recent Transactions</h3>
+              </HeaderContainer>
+            </RecentTransactionContainer>
+          </SecondColumn>
         </GridLayout>
       </ContentContainer>
     </Layout>

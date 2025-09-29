@@ -10,10 +10,10 @@ describe('test', () => {
     currency: '4500',
     ownerName: 'Jason Duval',
     balance: {},
-  }
+  };
   it('should test', async () => {
     const { getByText } = render(<AccountCard detail={details} />);
 
-    expect(getByText('GBP Account')).toBeDefined()
+    expect(getByText('GBP Account')).toBeDefined();
   });
-})
+});
