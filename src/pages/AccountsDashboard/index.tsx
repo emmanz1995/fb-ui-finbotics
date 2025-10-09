@@ -30,8 +30,26 @@ import {
 } from './styles';
 import { accountsConnector } from '../../connector';
 import AccountCard from '../../components/molecules/card/accountCard';
-// import { Link } from 'react-router-dom';
+import { pickBalanceFields } from '../../helpers';
 
+export interface BalanceToReturnProp {
+  [key: string]: {
+    id: string;
+    amount: number;
+    currency: string;
+    type: string;
+    metadata: object;
+    accountDetailsId: string;
+  };
+}
+export interface BalanceProps {
+  id: string;
+  amount: number;
+  currency: string;
+  type: string;
+  metadata: object;
+  accountDetailsId: string;
+}
 export interface AccountDetailsProps {
   id: string;
   resourceId: string;
@@ -39,14 +57,14 @@ export interface AccountDetailsProps {
   scan: string;
   currency: string;
   ownerName: string;
-  balance: any;
+  balance: BalanceProps[];
 }
 
 const AccountsDashboard: FC = () => {
   const [accountDetails, setAccountDetails] = useState<AccountDetailsProps[]>(
     []
   );
-  const [balances, setBalances] = useState<any[]>([
+  const [balances] = useState<BalanceProps[]>([
     {
       id: 'ad5d8eef-031a-4944-8aa5-b971b7446cc4',
       amount: 45000.0,
@@ -62,6 +80,14 @@ const AccountsDashboard: FC = () => {
       type: 'balances',
       metadata: {},
       accountDetailsId: 'c7d8ae51-589a-40cf-9d71-4c3300fe48b8',
+    },
+    {
+      id: '6837b570-ec6b-4736-ba22-672241d429a3',
+      amount: 1206700.09,
+      currency: 'GBP',
+      type: 'balances',
+      metadata: {},
+      accountDetailsId: '614a6660-61d1-4a9b-bfed-4593d2568d01',
     },
   ]);
 
@@ -80,36 +106,24 @@ const AccountsDashboard: FC = () => {
   // };
 
   const mapBalancesToAccount = () => {
-    const balanceToReturn: {
-      [key: string]: {
-        id: string;
-        amount: number;
-        currency: string;
-        type: string;
-        metadata: object;
-        accountDetailsId: string;
-      };
-    } = {};
-    const balanceToDetails = accountDetails.map(detail => {
-      // let balance = {}
-      balances.forEach(balance => {
-        if (detail.id === balance.accountDetailsId) {
-          balanceToReturn[balance.accountDetailsId] = {
-            id: balance.id,
-            amount: balance.amount,
-            currency: balance.currency,
-            type: balance.type,
-            metadata: balance.metadata,
-            accountDetailsId: balance.accountDetailsId,
-          };
-        }
-      });
+    const balanceToReturn: BalanceToReturnProp = {};
+    const balanceToDetails = accountDetails.map(
+      (detail: AccountDetailsProps) => {
+        balances.forEach((balance: BalanceProps) => {
+          if (detail.id === balance.accountDetailsId) {
+            // @ts-expect-error: balanceToReturn type does not match AccountDetailsProps.balance, will refactor type later
+            balanceToReturn[balance.accountDetailsId] = {
+              ...pickBalanceFields(balance),
+            };
+          }
+        });
 
-      return {
-        ...detail,
-        balance: balanceToReturn,
-      };
-    });
+        return {
+          ...detail,
+          balance: balanceToReturn,
+        };
+      }
+    );
 
     return balanceToDetails;
   };
@@ -179,6 +193,7 @@ const AccountsDashboard: FC = () => {
           </SummaryCard>
         </SummarySection>
         <AccountsGrid>
+          {/* @ts-expect-error: TODO:detail props does not match will refactor later */}
           {formattedDetails.map((detail: AccountDetailsProps) => (
             <AccountCard key={detail.id} detail={detail} />
           ))}
