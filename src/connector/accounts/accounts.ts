@@ -20,8 +20,16 @@ export const onIngestAccountData = async (accountId: string) => {
     });
 
     return response.data;
-  } catch (err: any) {
-    throw new Error(err.message);
+  } catch (err: Error | unknown) {
+    if (
+      typeof err === 'object' &&
+      err !== null &&
+      'message' in err &&
+      typeof err.message === 'string' &&
+      err.message !== ''
+    ) {
+      throw new Error(err.message);
+    }
   }
 };
 
@@ -33,8 +41,16 @@ export const getAccountDetails = async () => {
     });
 
     return response.data;
-  } catch (err: any) {
-    throw new Error(err.message);
+  } catch (err: Error | unknown) {
+    if (
+      typeof err === 'object' &&
+      err !== null &&
+      'message' in err &&
+      typeof err.message === 'string' &&
+      err.message !== ''
+    ) {
+      throw new Error(err.message);
+    }
   }
 };
 
@@ -49,8 +65,16 @@ export const getAccountDetailsByAccountId = async (accountId: string) => {
     });
 
     return response.data;
-  } catch (err: any) {
-    throw new Error(err.message);
+  } catch (err: Error | unknown) {
+    if (
+      typeof err === 'object' &&
+      err !== null &&
+      'message' in err &&
+      typeof err.message === 'string' &&
+      err.message !== ''
+    ) {
+      throw new Error(err.message);
+    }
   }
 };
 
@@ -66,8 +90,38 @@ export const getBalances = async (accountId: string) => {
     });
 
     return response.data;
-  } catch (err: any) {
-    throw new Error(err.message);
+  } catch (err: Error | unknown) {
+    if (
+      typeof err === 'object' &&
+      err !== null &&
+      'message' in err &&
+      typeof err.message === 'string' &&
+      err.message !== ''
+    ) {
+      throw new Error(err.message);
+    }
+  }
+};
+
+export const getAllBalances = async () => {
+  try {
+    const response = await axios({
+      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/account/get-balances`,
+      method: 'GET',
+      ...buildHeaders(),
+    });
+
+    return response.data;
+  } catch (err: Error | unknown) {
+    if (
+      typeof err === 'object' &&
+      err !== null &&
+      'message' in err &&
+      typeof err.message === 'string' &&
+      err.message !== ''
+    ) {
+      throw new Error(err.message);
+    }
   }
 };
 
@@ -87,8 +141,16 @@ export const getTransactions = async (
     });
 
     return data;
-  } catch (err: any) {
-    throw new Error(err.message);
+  } catch (err: Error | unknown) {
+    if (
+      typeof err === 'object' &&
+      err !== null &&
+      'message' in err &&
+      typeof err.message === 'string' &&
+      err.message !== ''
+    ) {
+      throw new Error(err.message);
+    }
   }
 };
 
@@ -104,7 +166,15 @@ export const onUpdateAccountDetails = async (id: string, ownerName: string) => {
     });
 
     return data;
-  } catch (err: any) {
-    throw new Error(err.message);
+  } catch (err: Error | unknown) {
+    if (
+      typeof err === 'object' &&
+      err !== null &&
+      'message' in err &&
+      typeof err.message === 'string' &&
+      err.message !== ''
+    ) {
+      throw new Error(err.message);
+    }
   }
 };

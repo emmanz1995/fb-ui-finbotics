@@ -99,6 +99,13 @@ export const GroupedRows = styled.div`
 export const FirstColumn = styled.div``;
 export const SecondColumn = styled.div``;
 
+export const Pagination = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
 // export const AccountDetailsContainer = styled.div``
 // export const AccountDetailsContainer = styled.div``
 // export const AccountDetailsContainer = styled.div``

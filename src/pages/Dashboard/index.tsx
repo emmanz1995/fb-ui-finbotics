@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import type { FC } from 'react';
+import type { FC, MouseEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -33,6 +33,7 @@ import {
   HeaderContainer,
   FirstColumn,
   SecondColumn,
+  Pagination,
 } from './styles';
 import { extractAccountNumber } from '../../helpers';
 import Button from '../../components/atoms/button';
@@ -68,7 +69,7 @@ const Dashboard: FC = () => {
     page: 0,
     transactions: [],
   });
-  const [balances, setBalances] = useState<ResourceProps[]>([]);
+  // const [balances, setBalances] = useState<ResourceProps[]>([]);
   const [detail, setDetail] = useState<DetailProps>({
     id: '',
     resourceId: '',
@@ -77,6 +78,8 @@ const Dashboard: FC = () => {
     currency: '',
     ownerName: '',
   });
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const totalPages = transactions.totalPages;
 
   const navigate = useNavigate();
   const params = useParams();
@@ -84,23 +87,29 @@ const Dashboard: FC = () => {
 
   useEffect(() => {
     const handleFetchAccountData = async () => {
-      const [transactionsRes, balancesRes] = await Promise.all([
-        await accountsConnector.getTransactions(accountId, {
-          limit: 5,
-          currentPage: 1,
-        }),
-        await accountsConnector.getBalances(accountId),
-      ]);
+      // const [transactionsRes, balancesRes] = await Promise.all([
+      //   await accountsConnector.getTransactions(accountId, {
+      //     limit: 5,
+      //     currentPage: 1,
+      //   }),
+      //   await accountsConnector.getAllBalances(),
+      // ]);
+      // setBalances(balancesRes);
 
-      setTransactions(transactionsRes);
-      setBalances(balancesRes);
+      const transactionRes = await accountsConnector.getTransactions(
+        accountId,
+        {
+          limit: 5,
+          currentPage,
+        }
+      );
+
+      setTransactions(transactionRes);
+      setCurrentPage(transactionRes?.page);
     };
 
     handleFetchAccountData();
-  }, [accountId]);
-
-  console.log(transactions);
-  console.log(balances);
+  }, [accountId, currentPage]);
 
   useEffect(() => {
     const getAccountDetail = async () => {
@@ -111,7 +120,30 @@ const Dashboard: FC = () => {
     getAccountDetail();
   }, [accountId]);
 
-  const { accountNumber } = extractAccountNumber(detail?.scan);
+  const scan = detail?.scan ? detail?.scan : '';
+
+  const { accountNumber } = extractAccountNumber(scan);
+
+  const handleSelectPage = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const handleNextPage = (evt: MouseEvent<HTMLButtonElement>) => {
+    evt.preventDefault();
+    if (currentPage < totalPages && currentPage >= 0)
+      setCurrentPage(currentPage + 1);
+  };
+
+  const handlePreviousPage = (evt: MouseEvent<HTMLButtonElement>) => {
+    evt.preventDefault();
+    if (currentPage > 0 && currentPage <= totalPages)
+      setCurrentPage(currentPage - 1);
+  };
+
+  const pages = [];
+  for (let i = 0; totalPages > i; i++) {
+    pages.push(i + 1);
+  }
 
   return (
     <Layout>
@@ -182,6 +214,52 @@ const Dashboard: FC = () => {
                 <LightbulbIcon />
                 <h3>Recent Transactions</h3>
               </HeaderContainer>
+              <div>
+                {transactions.transactions.map(transaction => (
+                  <div key={transaction.id}>
+                    <AccountDetailsSection>
+                      <AccountDetail>
+                        <Subtitle>Type</Subtitle>
+                        <h4>{transaction.type}</h4>
+                      </AccountDetail>
+                      <AccountDetail>
+                        <Subtitle>Amount</Subtitle>
+                        <h4>
+                          {transaction.currency} {transaction.amount}
+                        </h4>
+                      </AccountDetail>
+                      <AccountDetail>
+                        <Subtitle>Metadata</Subtitle>
+                        <h4>{JSON.stringify(transaction.metadata)}</h4>
+                      </AccountDetail>
+                    </AccountDetailsSection>
+                  </div>
+                ))}
+              </div>
+              <Pagination>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handlePreviousPage}
+                >
+                  Previous
+                </Button>
+                {pages.map((pageNum: number, i: number) => {
+                  return (
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      onClick={() => handleSelectPage(pageNum)}
+                      key={i}
+                    >
+                      {pageNum}
+                    </Button>
+                  );
+                })}
+                <Button variant="outline" size="sm" onClick={handleNextPage}>
+                  Next
+                </Button>
+              </Pagination>
             </RecentTransactionContainer>
           </SecondColumn>
         </GridLayout>

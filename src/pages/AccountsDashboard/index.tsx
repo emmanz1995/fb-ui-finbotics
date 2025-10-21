@@ -64,32 +64,7 @@ const AccountsDashboard: FC = () => {
   const [accountDetails, setAccountDetails] = useState<AccountDetailsProps[]>(
     []
   );
-  const [balances] = useState<BalanceProps[]>([
-    {
-      id: 'ad5d8eef-031a-4944-8aa5-b971b7446cc4',
-      amount: 45000.0,
-      currency: 'GBP',
-      type: 'balances',
-      metadata: {},
-      accountDetailsId: 'b490aa2c-02bb-4536-9d51-c2be353f5e4e',
-    },
-    {
-      id: '3370cde0-1894-4ce5-99ea-5a8e69eb895f',
-      amount: 6700.09,
-      currency: 'GBP',
-      type: 'balances',
-      metadata: {},
-      accountDetailsId: 'c7d8ae51-589a-40cf-9d71-4c3300fe48b8',
-    },
-    {
-      id: '6837b570-ec6b-4736-ba22-672241d429a3',
-      amount: 1206700.09,
-      currency: 'GBP',
-      type: 'balances',
-      metadata: {},
-      accountDetailsId: '614a6660-61d1-4a9b-bfed-4593d2568d01',
-    },
-  ]);
+  const [balances, setBalances] = useState<BalanceProps[]>([]);
 
   const navigate = useNavigate();
 
@@ -99,11 +74,10 @@ const AccountsDashboard: FC = () => {
     setAccountDetails(details);
   };
 
-  // TODO: to work on this part after I have done some modifications in the backend 😊
-  // const fetchBalancesByAccountId = async () => {
-  //   const balances = await accountsConnector.getBalances();
-  //   setBalances(balances)
-  // };
+  const fetchBalances = async () => {
+    const balancesRes = await accountsConnector.getAllBalances();
+    setBalances(balancesRes);
+  };
 
   const mapBalancesToAccount = () => {
     const balanceToReturn: BalanceToReturnProp = {};
@@ -115,6 +89,8 @@ const AccountsDashboard: FC = () => {
             balanceToReturn[balance.accountDetailsId] = {
               ...pickBalanceFields(balance),
             };
+
+            console.log('...balanceToReturn', balanceToReturn);
           }
         });
 
@@ -132,9 +108,9 @@ const AccountsDashboard: FC = () => {
     fetchAccountDetails();
   }, []);
 
-  // useEffect(() => {
-  //   fetchBalancesByAccountId();
-  // }, []);
+  useEffect(() => {
+    fetchBalances();
+  }, []);
   const formattedDetails = mapBalancesToAccount();
 
   return (
