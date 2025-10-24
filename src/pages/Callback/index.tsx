@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { FC, MouseEvent } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Layout from '../../components/template';
 import {
   ContentContainer,
@@ -14,11 +14,15 @@ import Button from '../../components/atoms/button';
 const CallbackPage: FC = () => {
   const [message, setMessage] = useState('');
   const location = useLocation();
+  const navigate = useNavigate();
 
   const reference: string | null = new URLSearchParams(location.search).get(
     'ref'
   );
-  console.log(reference);
+
+  const errorState: string | null = new URLSearchParams(location.search).get(
+    'error'
+  );
 
   const handleIngestAccountDetails = async (
     evt: MouseEvent<HTMLButtonElement>
@@ -26,6 +30,11 @@ const CallbackPage: FC = () => {
     evt.preventDefault();
     const response = await onBoardConnector.onIngestFromRequisition(reference);
     console.log(response);
+
+    if (errorState?.startsWith('UserCancelled')) {
+      setMessage('You have cancelled the bank connection process.');
+      return;
+    }
 
     if (response.message.includes('successfully')) {
       setMessage(response.message);
@@ -45,9 +54,17 @@ const CallbackPage: FC = () => {
         </HeaderContent>
         {reference ? (
           <div>
-            <Button variant="primary" onClick={handleIngestAccountDetails}>
-              Ingest your Data
-            </Button>
+            {errorState ? (
+              <>
+                <Button variant='primary' onClick={() => navigate('/onboard-institution')}>Go back</Button>
+              </>
+            ) : (
+              <>
+                <Button variant="primary" onClick={handleIngestAccountDetails}>
+                  Ingest your Data
+                </Button>
+              </>
+            )}
           </div>
         ) : (
           <p>Your not supposed to be back here, go away!</p>

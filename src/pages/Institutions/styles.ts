@@ -10,13 +10,13 @@ export const InstitutionGrid = styled.div`
 `;
 
 export const InstitutionCard = styled.div<ThemeProps>`
-  background-color: white
+  background-color: white;
   border-radius: ${props => props.theme.radii.lg};
   box-shadow: ${props => props.theme.shadows.lg};
   padding: 10px;
   cursor: pointer;
-  transition: 
-    transform 0.2s ease, 
+  transition:
+    transform 0.2s ease,
     box-shadow 0.2s ease;
   &:hover {
     transform: translateY(-4px);

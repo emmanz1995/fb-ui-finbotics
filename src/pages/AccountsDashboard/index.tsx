@@ -89,8 +89,6 @@ const AccountsDashboard: FC = () => {
             balanceToReturn[balance.accountDetailsId] = {
               ...pickBalanceFields(balance),
             };
-
-            console.log('...balanceToReturn', balanceToReturn);
           }
         });
 

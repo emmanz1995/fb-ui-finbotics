@@ -23,7 +23,6 @@ interface InstitutionProps {
   logo: string;
   max_access_valid_for_days: string;
 }
-
 const options = [6, 9, 12];
 
 const Institutions: FC = () => {
