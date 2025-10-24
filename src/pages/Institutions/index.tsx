@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { FC, MouseEvent } from 'react';
 import { InstitutionGrid } from './styles';
 import Layout from '../../components/template';
@@ -37,16 +37,16 @@ const Institutions: FC = () => {
   const [totalPages, setTotalPages] = useState(0);
   // const [offSet, setOffset] = useState(0);
 
-  const getInstitutions = async () => {
+  const getInstitutions = useCallback(async () => {
     const res = await fetchInstitutions({ currentPage, limit });
     setInstitutions(res.institutions);
     setCurrentPage(res.pagination.pages);
     setTotalPages(res.pagination.totalPages);
-  };
+  }, [currentPage, limit]);
 
   useEffect(() => {
     getInstitutions();
-  }, [currentPage, limit]);
+  }, [getInstitutions]);
 
   const grabInstitutionId = (
     bankId: string,
