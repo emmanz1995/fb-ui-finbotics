@@ -8,11 +8,14 @@ import {
   Subtitle,
   HeaderContent,
 } from '../../styles/common';
-import institutionsMock from '../../connector/institutions/institutions-data.json';
 import { InstitutionCard } from '../../components/molecules/card';
+import { fetchInstitutions } from '../../connector/institutions';
+import Pagination from '../../components/molecules/pagination';
+import { map } from 'lodash';
+import Button from '../../components/atoms/button';
 
 interface InstitutionProps {
-  id: string;
+  _id: string;
   name: string;
   bic: string;
   transaction_total_days: string;
@@ -21,16 +24,29 @@ interface InstitutionProps {
   max_access_valid_for_days: string;
 }
 
+const options = [6, 9, 12];
+
 const Institutions: FC = () => {
   const [institutions, setInstitutions] = useState<InstitutionProps[]>([]);
   const [institutionId, setInstitutionId] = useState('');
   // this is to capture index for current institutions card
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [message, setMessage] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(9);
+  const [totalPages, setTotalPages] = useState(0);
+  // const [offSet, setOffset] = useState(0);
+
+  const getInstitutions = async () => {
+    const res = await fetchInstitutions({ currentPage, limit });
+    setInstitutions(res.institutions);
+    setCurrentPage(res.pagination.pages);
+    setTotalPages(res.pagination.totalPages);
+  };
 
   useEffect(() => {
-    setInstitutions(institutionsMock);
-  }, []);
+    getInstitutions();
+  }, [currentPage, limit]);
 
   const grabInstitutionId = (
     bankId: string,
@@ -40,9 +56,9 @@ const Institutions: FC = () => {
     evt.preventDefault();
     setInstitutionId(bankId);
     const institutionName = institutions.find(
-      institution => institution.id === bankId
+      institution => institution._id === bankId
     )?.name;
-    setMessage(`You have selected the ${institutionName}`);
+    setMessage(`You have selected the ${institutionName} institution.`);
     setCurrentIndex(cardIndex);
   };
 
@@ -62,6 +78,20 @@ const Institutions: FC = () => {
     form.submit();
   };
 
+  const handleChangePage = (
+    evt: MouseEvent<HTMLButtonElement>,
+    pageNumber: number
+  ) => {
+    evt.preventDefault();
+    setCurrentPage(pageNumber);
+  };
+
+  const handleSwitchLimit = (newLimit: number) => {
+    setLimit(newLimit);
+    console.log(newLimit);
+    setCurrentPage(1);
+  };
+
   return (
     <Layout>
       <ContentContainer>
@@ -73,10 +103,24 @@ const Institutions: FC = () => {
           </Subtitle>
           {message && <p>{message}</p>}
         </HeaderContent>
+        <div>
+          {map(options, (option: number, i: number) => {
+            return (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleSwitchLimit(option)}
+                key={i}
+              >
+                {option}
+              </Button>
+            );
+          })}
+        </div>
         <InstitutionGrid>
           {institutions.map((institution: InstitutionProps, index: number) => (
             <InstitutionCard
-              key={institution.id}
+              key={institution._id}
               institution={institution}
               grabInstitutionId={grabInstitutionId}
               handleConnectToInstitution={handleConnectToInstitution}
@@ -86,6 +130,20 @@ const Institutions: FC = () => {
             />
           ))}
         </InstitutionGrid>
+        {/* <select onClick={() => handleSwitchLimit(limit)}>
+          {options.map((option: number, i: number) => (
+            <div key={i}>
+              <option value={option}>{option}</option>
+              <option value={option}>{option}</option>
+              <option value={option}>{option}</option>
+              <option value={option}>{option}</option>
+            </div>
+          ))}
+        </select> */}
+        <Pagination
+          totalPages={totalPages}
+          handleChangePage={handleChangePage}
+        />
       </ContentContainer>
     </Layout>
   );

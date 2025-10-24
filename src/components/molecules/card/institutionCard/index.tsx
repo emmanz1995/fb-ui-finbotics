@@ -8,7 +8,7 @@ import {
 import Button from '../../../atoms/button';
 
 interface InstitutionProps {
-  id: string;
+  _id: string;
   name: string;
   bic: string;
   transaction_total_days: string;
@@ -20,7 +20,7 @@ interface InstitutionProps {
 const InstitutionCard: FC<{
   institution: InstitutionProps;
   grabInstitutionId: (
-    id: string,
+    _id: string,
     cardIndex: number,
     evt: MouseEvent<HTMLButtonElement>
   ) => void;
@@ -54,7 +54,7 @@ const InstitutionCard: FC<{
         fullWidth="full"
         variant="primary"
         onClick={(evt: React.MouseEvent<HTMLButtonElement>) => {
-          grabInstitutionId(institution.id, cardIndex, evt);
+          grabInstitutionId(institution._id, cardIndex, evt);
         }}
       >
         Select Institution
