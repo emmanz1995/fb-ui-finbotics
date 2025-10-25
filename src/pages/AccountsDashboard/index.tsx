@@ -131,7 +131,7 @@ const AccountsDashboard: FC = () => {
       setLoading(false);
     }
   };
-  
+
   return (
     <Layout>
       <ContentContainer>
