@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ThemeProps } from '../../../../styles/themes';
 
-export const AccountCard = styled(Link)<ThemeProps>`
+export const AccountCard = styled.div<ThemeProps>`
   background-color: white;
   border-radius: ${props => props.theme.radii?.lg};
   box-shadow: ${props => props.theme.shadows?.md};
@@ -71,7 +71,7 @@ export const AccountFooter = styled.div<ThemeProps>`
   padding-top: 1rem;
   border-top: 1px solid ${props => props.theme.colors.border};
 `;
-export const AccountOwner = styled.p<ThemeProps>`
+export const AccountOwner = styled(Link)<ThemeProps>`
   font-size: 0.875rem;
   color: ${props => props.theme.colors.text.secondary};
 `;

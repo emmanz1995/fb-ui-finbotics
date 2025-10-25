@@ -56,7 +56,12 @@ const CallbackPage: FC = () => {
           <div>
             {errorState ? (
               <>
-                <Button variant='primary' onClick={() => navigate('/onboard-institution')}>Go back</Button>
+                <Button
+                  variant="primary"
+                  onClick={() => navigate('/onboard-institution')}
+                >
+                  Go back
+                </Button>
               </>
             ) : (
               <>

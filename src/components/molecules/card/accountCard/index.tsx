@@ -14,10 +14,17 @@ import {
   Currency,
 } from './styles';
 import type { AccountDetailsProps } from '../../../../pages/AccountsDashboard';
-import { CreditCardIcon } from 'lucide-react';
+import { CreditCardIcon, TrashIcon, RefreshCcwIcon } from 'lucide-react';
+import Button from '../../../atoms/button';
 
-const Card: FC<{ detail: AccountDetailsProps }> = ({ detail }) => (
-  <AccountCard to={`/dashboard/${detail.id}`}>
+interface CardProps {
+  detail: AccountDetailsProps;
+  handleAccountDataSync: (accountId: string) => Promise<void>;
+  isLoading: boolean;
+}
+
+const Card: FC<CardProps> = ({ detail, handleAccountDataSync, isLoading }) => (
+  <AccountCard>
     <AccountHeader>
       <AccountInfo>
         <AccountName>{detail.currency} Account</AccountName>
@@ -42,7 +49,22 @@ const Card: FC<{ detail: AccountDetailsProps }> = ({ detail }) => (
       </BalanceAmount>
     </BalanceSection>
     <AccountFooter>
-      <AccountOwner>{detail.ownerName}</AccountOwner>
+      <AccountOwner to={`/dashboard/${detail.id}`}>
+        {detail.ownerName}
+      </AccountOwner>
+      <span>
+        <Button
+          variant="outline"
+          size="sm"
+          isLoading={isLoading}
+          onClick={() => handleAccountDataSync(detail?.id)}
+        >
+          <RefreshCcwIcon cursor="pointer" />
+        </Button>{' '}
+        <Button variant="outline" size="sm">
+          <TrashIcon cursor="pointer" />
+        </Button>
+      </span>
     </AccountFooter>
   </AccountCard>
 );

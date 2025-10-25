@@ -65,6 +65,7 @@ const AccountsDashboard: FC = () => {
     []
   );
   const [balances, setBalances] = useState<BalanceProps[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -111,6 +112,26 @@ const AccountsDashboard: FC = () => {
   }, []);
   const formattedDetails = mapBalancesToAccount();
 
+  const handleAccountDataSync = async (accountId: string): Promise<void> => {
+    setLoading(false);
+    try {
+      setLoading(true);
+      await accountsConnector.onIngestAccountData(accountId);
+      await fetchAccountDetails();
+      await fetchBalances();
+      setLoading(false);
+    } catch (err: Error | unknown) {
+      if (typeof err === 'object' && err !== null && 'message' in err) {
+        console.log('Failed to sync bank data:', err.message);
+      }
+      // this is for debugging purposes, this will be cleared later on
+      console.log('...err', err);
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   return (
     <Layout>
       <ContentContainer>
@@ -169,7 +190,12 @@ const AccountsDashboard: FC = () => {
         <AccountsGrid>
           {/* @ts-expect-error: TODO:detail props does not match will refactor later */}
           {formattedDetails.map((detail: AccountDetailsProps) => (
-            <AccountCard key={detail.id} detail={detail} />
+            <AccountCard
+              key={detail.id}
+              detail={detail}
+              handleAccountDataSync={handleAccountDataSync}
+              isLoading={loading}
+            />
           ))}
           <ConnectBankCard>
             <ConnectBankIcon>

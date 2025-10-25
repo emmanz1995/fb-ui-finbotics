@@ -104,13 +104,14 @@ export const StyledButton = styled.button<{
   width: ${props => (props.fullWidth === 'full' ? '100%' : 'auto')};
 `;
 
-export const LoadingSpinner = styled.div`
+export const LoadingSpinner = styled.div<{ theme: Props }>`
   width: 1rem;
   height: 1rem;
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   border-top-color: white;
   animation: spin 0.8s linear infinite;
+  background-color: ${props => props.theme.colors.primary};
   @keyframes spin {
     to {
       transform: rotate(360deg);
