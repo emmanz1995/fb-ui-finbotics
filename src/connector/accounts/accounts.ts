@@ -1,13 +1,13 @@
 import axios from 'axios';
 import authHeader from '../../helpers/auth-header';
 
-const AuthorizationHeader = authHeader('token-placeholder');
+const AuthorizationHeader = authHeader('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM');
 AuthorizationHeader['Content-Type'] = 'application/json';
 
 export const onIngestAccountData = async (accountId: string) => {
   try {
     const response = await axios({
-      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/account/ingest`,
+      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/details/ingest`,
       method: 'POST',
       data: {
         accountId,
@@ -32,9 +32,9 @@ export const onIngestAccountData = async (accountId: string) => {
 export const getAccountDetails = async () => {
   try {
     const response = await axios({
-      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/account/details`,
+      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/details/get-accounts`,
       method: 'GET',
-      headers: authHeader(''),
+      headers: authHeader('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'),
     });
 
     return response.data;
@@ -54,14 +54,13 @@ export const getAccountDetails = async () => {
 export const getAccountDetailsByAccountId = async (accountId: string) => {
   try {
     const response = await axios({
-      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/account`,
+      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/details/get-account/${accountId}`,
       method: 'GET',
-      headers: authHeader(''),
-      params: {
-        accountId,
-      },
+      headers: authHeader('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'),
     });
 
+    console.log('...data', response?.data);
+    
     return response.data;
   } catch (err: Error | unknown) {
     if (
@@ -79,14 +78,13 @@ export const getAccountDetailsByAccountId = async (accountId: string) => {
 export const getBalances = async (accountId: string) => {
   try {
     const response = await axios({
-      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/account/balances`,
+      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/details/get-balance`,
       method: 'GET',
       params: {
         accountId,
       },
-      headers: authHeader(''),
+      headers: authHeader('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'),
     });
-
     return response.data;
   } catch (err: Error | unknown) {
     if (
@@ -101,14 +99,19 @@ export const getBalances = async (accountId: string) => {
   }
 };
 
-export const getAllBalances = async () => {
+export const getAllBalances = async (accountId: string) => {
   try {
     const response = await axios({
-      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/account/get-balances`,
+      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/details/get-balance`,
       method: 'GET',
-      headers: authHeader(''),
+      headers: authHeader('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'),
+      params: {
+        accountId
+      }
     });
 
+    console.log(response.data);
+    
     return response.data;
   } catch (err: Error | unknown) {
     if (
