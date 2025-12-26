@@ -117,7 +117,7 @@ const Institutions: FC = () => {
           })}
         </div>
         <InstitutionGrid>
-          {institutions.map((institution: InstitutionProps, index: number) => (
+          {institutions?.map((institution: InstitutionProps, index: number) => (
             <InstitutionCard
               key={institution._id}
               institution={institution}

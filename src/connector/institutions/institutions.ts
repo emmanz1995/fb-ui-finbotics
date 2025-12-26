@@ -1,14 +1,13 @@
 import axios from 'axios';
 
-const { VITE_API_URL_INSTITUTIONS } = import.meta.env;
+const { VITE_API_URL_ACCOUNTS } = import.meta.env;
 
 export const fetchInstitutions = async (pagination: {
   currentPage: number;
   limit: number;
 }) => {
   let data;
-  const url = new URL(`${VITE_API_URL_INSTITUTIONS}/api/v1/institutions/all`);
-
+  const url = new URL(`${VITE_API_URL_ACCOUNTS}/api/v1/institutions`);
   const params = url.searchParams;
 
   params.append('page', pagination.currentPage.toString());

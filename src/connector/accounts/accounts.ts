@@ -1,12 +1,8 @@
 import axios from 'axios';
+import authHeader from '../../helpers/auth-header';
 
-const buildHeaders = () => {
-  return {
-    headers: {
-      'content-type': 'application/json',
-    },
-  };
-};
+const AuthorizationHeader = authHeader('token-placeholder');
+AuthorizationHeader['Content-Type'] = 'application/json';
 
 export const onIngestAccountData = async (accountId: string) => {
   try {
@@ -16,7 +12,7 @@ export const onIngestAccountData = async (accountId: string) => {
       data: {
         accountId,
       },
-      ...buildHeaders(),
+      headers: AuthorizationHeader,
     });
 
     return response.data;
@@ -38,6 +34,7 @@ export const getAccountDetails = async () => {
     const response = await axios({
       url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/account/details`,
       method: 'GET',
+      headers: authHeader(''),
     });
 
     return response.data;
@@ -59,6 +56,7 @@ export const getAccountDetailsByAccountId = async (accountId: string) => {
     const response = await axios({
       url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/account`,
       method: 'GET',
+      headers: authHeader(''),
       params: {
         accountId,
       },
@@ -86,7 +84,7 @@ export const getBalances = async (accountId: string) => {
       params: {
         accountId,
       },
-      ...buildHeaders(),
+      headers: authHeader(''),
     });
 
     return response.data;
@@ -108,7 +106,7 @@ export const getAllBalances = async () => {
     const response = await axios({
       url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/account/get-balances`,
       method: 'GET',
-      ...buildHeaders(),
+      headers: authHeader(''),
     });
 
     return response.data;
@@ -129,15 +127,25 @@ export const getTransactions = async (
   accountId: string,
   pagination?: { currentPage: number; limit: number }
 ) => {
+  const searchParams = new URLSearchParams();
+  searchParams.append('accountId', accountId);
+
+  if (pagination?.currentPage !== undefined) {
+    searchParams.append('currentPage', pagination?.currentPage.toString());
+  }
+  if (pagination?.limit !== undefined) {
+    searchParams.append('limit', pagination?.limit.toString());
+  }
+
+  console.log('...searchParams', searchParams);
   try {
     const { data } = await axios({
-      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/account/transactions`,
+      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/details/get-transactions`,
       method: 'GET',
       params: {
-        accountId,
-        currentPage: pagination?.currentPage,
-        limit: pagination?.limit,
+        searchParams,
       },
+      headers: authHeader(''),
     });
 
     return data;
@@ -162,7 +170,7 @@ export const onUpdateAccountDetails = async (id: string, ownerName: string) => {
       data: {
         ownerName,
       },
-      ...buildHeaders(),
+      headers: AuthorizationHeader,
     });
 
     return data;
