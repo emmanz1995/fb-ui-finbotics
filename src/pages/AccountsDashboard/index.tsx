@@ -62,8 +62,8 @@ export interface AccountDetailsProps {
 
 const AccountsDashboard: FC = () => {
   const currentUser = {
-    accountIds: ['c7d8ae51-589a-40cf-9d71-4c3300fe48b8']
-  }
+    accountIds: ['c7d8ae51-589a-40cf-9d71-4c3300fe48b8'],
+  };
   const [accountDetails, setAccountDetails] = useState<AccountDetailsProps[]>(
     []
   );
@@ -75,14 +75,16 @@ const AccountsDashboard: FC = () => {
   const fetchAccountDetails = async () => {
     const details: AccountDetailsProps[] =
       await accountsConnector.getAccountDetails();
-      console.log('...details', details);
-      
+    console.log('...details', details);
+
     setAccountDetails(details);
   };
 
   const fetchBalances = async () => {
     // TODO: update this with dynamic accountId pulled from currently logged in user
-    const balancesRes = await accountsConnector.getAllBalances('c7d8ae51-589a-40cf-9d71-4c3300fe48b8');
+    const balancesRes = await accountsConnector.getAllBalances(
+      'c7d8ae51-589a-40cf-9d71-4c3300fe48b8'
+    );
     setBalances(balancesRes);
   };
 

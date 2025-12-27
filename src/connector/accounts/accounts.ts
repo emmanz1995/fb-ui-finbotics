@@ -1,7 +1,9 @@
 import axios from 'axios';
 import authHeader from '../../helpers/auth-header';
 
-const AuthorizationHeader = authHeader('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM');
+const AuthorizationHeader = authHeader(
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'
+);
 AuthorizationHeader['Content-Type'] = 'application/json';
 
 export const onIngestAccountData = async (accountId: string) => {
@@ -34,7 +36,9 @@ export const getAccountDetails = async () => {
     const response = await axios({
       url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/details/get-accounts`,
       method: 'GET',
-      headers: authHeader('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'),
+      headers: authHeader(
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'
+      ),
     });
 
     return response.data;
@@ -56,11 +60,13 @@ export const getAccountDetailsByAccountId = async (accountId: string) => {
     const response = await axios({
       url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/details/get-account/${accountId}`,
       method: 'GET',
-      headers: authHeader('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'),
+      headers: authHeader(
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'
+      ),
     });
 
     console.log('...data', response?.data);
-    
+
     return response.data;
   } catch (err: Error | unknown) {
     if (
@@ -83,7 +89,9 @@ export const getBalances = async (accountId: string) => {
       params: {
         accountId,
       },
-      headers: authHeader('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'),
+      headers: authHeader(
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'
+      ),
     });
     return response.data;
   } catch (err: Error | unknown) {
@@ -104,14 +112,16 @@ export const getAllBalances = async (accountId: string) => {
     const response = await axios({
       url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/details/get-balance`,
       method: 'GET',
-      headers: authHeader('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'),
+      headers: authHeader(
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'
+      ),
       params: {
-        accountId
-      }
+        accountId,
+      },
     });
 
     console.log(response.data);
-    
+
     return response.data;
   } catch (err: Error | unknown) {
     if (
@@ -143,13 +153,14 @@ export const getTransactions = async (
   console.log('...searchParams', searchParams);
   try {
     const { data } = await axios({
-      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/details/get-transactions`,
+      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/details/get-transactions?${searchParams.toString()}`,
       method: 'GET',
-      params: {
-        searchParams,
-      },
-      headers: authHeader(''),
+      headers: authHeader(
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'
+      ),
     });
+
+    console.log('...data', data);
 
     return data;
   } catch (err: Error | unknown) {

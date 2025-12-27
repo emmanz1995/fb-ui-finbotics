@@ -47,10 +47,15 @@ interface ResourceProps {
   metadata: object;
   accountDetailsId: string;
 }
-interface TransactionsProps {
-  transactionsPerPage: number;
+
+interface Pagination {
   totalPages: number;
   page: number;
+  transactionsPerPage: number;
+  offset: number;
+}
+interface TransactionsProps {
+  pagination: Pagination;
   transactions: ResourceProps[];
 }
 interface DetailProps {
@@ -64,9 +69,12 @@ interface DetailProps {
 
 const Dashboard: FC = () => {
   const [transactions, setTransactions] = useState<TransactionsProps>({
-    transactionsPerPage: 0,
-    totalPages: 0,
-    page: 0,
+    pagination: {
+      transactionsPerPage: 0,
+      totalPages: 0,
+      page: 0,
+      offset: 0,
+    },
     transactions: [],
   });
   // const [balances, setBalances] = useState<ResourceProps[]>([]);
@@ -79,7 +87,9 @@ const Dashboard: FC = () => {
     ownerName: '',
   });
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const totalPages = transactions.totalPages;
+  const totalPages = transactions.pagination.totalPages;
+
+  console.log('...transactions', transactions);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -105,7 +115,7 @@ const Dashboard: FC = () => {
       );
 
       setTransactions(transactionRes);
-      setCurrentPage(transactionRes?.page);
+      setCurrentPage(transactionRes?.pagination?.page);
     };
 
     handleFetchAccountData();
