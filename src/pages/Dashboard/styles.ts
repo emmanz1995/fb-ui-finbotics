@@ -107,7 +107,20 @@ export const Pagination = styled.div`
   width: 100%;
 `;
 
-// export const AccountDetailsContainer = styled.div``
+export const StyledTabs = styled.div``;
+export const StyledTabsOption = styled.div``;
+export const TransactionContainer = styled.div<ThemeProps>`
+  background-color: ${props => props.theme.colors.text.white};
+  width: 100%;
+`;
+export const TransactionDetailsContainer = styled.div<ThemeProps>`
+  padding: 10px 0;
+  margin: 15px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+`;
 // export const AccountDetailsContainer = styled.div``
 // export const AccountDetailsContainer = styled.div``
 // export const AccountDetailsContainer = styled.div``

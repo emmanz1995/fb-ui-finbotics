@@ -4,14 +4,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
   ArrowLeft,
   // ArrowLeftIcon,
-  CreditCardIcon,
+  // CreditCardIcon,
   // CalendarIcon,
-  TrendingUpIcon,
+  // TrendingUpIcon,
   // TrendingDownIcon,
   // AlertCircleIcon,
   // ShoppingBagIcon,
-  BarChartIcon,
-  LightbulbIcon,
+  // BarChartIcon,
+  // LightbulbIcon,
 } from 'lucide-react';
 import { Title, Subtitle, ContentContainer } from '../../styles/common';
 import Layout from '../../components/template';
@@ -24,15 +24,17 @@ import {
   AccountDetail,
   BalanceInfo,
   BalanceAmount,
-  GridLayout,
+  TransactionContainer,
+  TransactionDetailsContainer,
+  // GridLayout,
   HeaderContent,
-  SpendingOverviewContainer,
-  SpendingPredicationContainer,
-  RecentTransactionContainer,
-  FinancialTipsContainer,
-  HeaderContainer,
-  FirstColumn,
-  SecondColumn,
+  // SpendingOverviewContainer,
+  // SpendingPredicationContainer,
+  // RecentTransactionContainer,
+  // FinancialTipsContainer,
+  // HeaderContainer,
+  // FirstColumn,
+  // SecondColumn,
   Pagination,
 } from './styles';
 import { extractAccountNumber } from '../../helpers';
@@ -87,25 +89,14 @@ const Dashboard: FC = () => {
     ownerName: '',
   });
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [tabs, setTabs] = useState('Transactions');
   const totalPages = transactions.pagination.totalPages;
-
-  console.log('...transactions', transactions);
-
   const navigate = useNavigate();
   const params = useParams();
   const accountId = params.accountId as string;
 
   useEffect(() => {
     const handleFetchAccountData = async () => {
-      // const [transactionsRes, balancesRes] = await Promise.all([
-      //   await accountsConnector.getTransactions(accountId, {
-      //     limit: 5,
-      //     currentPage: 1,
-      //   }),
-      //   await accountsConnector.getAllBalances(),
-      // ]);
-      // setBalances(balancesRes);
-
       const transactionRes = await accountsConnector.getTransactions(
         accountId,
         {
@@ -115,7 +106,7 @@ const Dashboard: FC = () => {
       );
 
       setTransactions(transactionRes);
-      setCurrentPage(transactionRes?.pagination?.page);
+      setCurrentPage(transactionRes?.pagination?.currentPage);
     };
 
     handleFetchAccountData();
@@ -129,27 +120,22 @@ const Dashboard: FC = () => {
     };
     getAccountDetail();
   }, [accountId]);
-
   const scan = detail?.scan ? detail?.scan : '';
-
   const { accountNumber } = extractAccountNumber(scan);
 
   const handleSelectPage = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
-
   const handleNextPage = (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     if (currentPage < totalPages && currentPage >= 0)
       setCurrentPage(currentPage + 1);
   };
-
   const handlePreviousPage = (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     if (currentPage > 0 && currentPage <= totalPages)
       setCurrentPage(currentPage - 1);
   };
-
   const pages = [];
   for (let i = 0; totalPages > i; i++) {
     pages.push(i + 1);
@@ -197,7 +183,55 @@ const Dashboard: FC = () => {
             </AccountDetail>
           </AccountDetailsSection>
         </AccountDetailsContainer>
-        <GridLayout>
+        {/* ---------- Tabs ---------- */}
+        <div>
+          <Button variant="outline" onClick={() => setTabs('Transactions')}>
+            Transactions
+          </Button>
+          <Button variant="outline" onClick={() => setTabs('Savings')}>
+            Saving Goals
+          </Button>
+        </div>
+        {tabs === 'Transactions' && (
+          <TransactionContainer>
+            {transactions.transactions.map(transaction => (
+              <TransactionDetailsContainer key={transaction.id}>
+                <AccountDetail>
+                  <Subtitle>Purchase</Subtitle>
+                  <h4>{transaction.details ?? 'Untitled'}</h4>
+                </AccountDetail>
+                <AccountDetail>
+                  <Subtitle>Amount</Subtitle>
+                  <h4>
+                    {transaction.currency} {transaction.amount}
+                  </h4>
+                </AccountDetail>
+              </TransactionDetailsContainer>
+            ))}
+            <Pagination>
+              <Button variant="outline" size="sm" onClick={handlePreviousPage}>
+                Previous
+              </Button>
+              {pages.map((pageNum: number, i: number) => {
+                return (
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    onClick={() => handleSelectPage(pageNum)}
+                    key={i}
+                  >
+                    {pageNum}
+                  </Button>
+                );
+              })}
+              <Button variant="outline" size="sm" onClick={handleNextPage}>
+                Next
+              </Button>
+            </Pagination>
+          </TransactionContainer>
+        )}
+        {tabs === 'Savings' && <div>Saving Goals</div>}
+        {/* <GridLayout>
           <FirstColumn>
             <SpendingOverviewContainer>
               <HeaderContainer>
@@ -272,7 +306,7 @@ const Dashboard: FC = () => {
               </Pagination>
             </RecentTransactionContainer>
           </SecondColumn>
-        </GridLayout>
+        </GridLayout> */}
       </ContentContainer>
     </Layout>
   );

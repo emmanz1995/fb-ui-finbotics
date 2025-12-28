@@ -88,6 +88,15 @@ const AccountsDashboard: FC = () => {
     setBalances(balancesRes);
   };
 
+  const groupBalancesByAccountId = accountDetails.reduce(
+    (acc: any, detail: any) => {
+      if (!acc[currentUser.accountIds[0] === {}]) {
+        acc[currentUser.accountIds[0]] = {};
+      }
+    },
+    {}
+  );
+
   const mapBalancesToAccount = () => {
     const balanceToReturn: BalanceToReturnProp = {};
     const balanceToDetails = accountDetails?.map(
