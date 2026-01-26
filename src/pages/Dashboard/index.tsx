@@ -3,15 +3,15 @@ import type { FC, MouseEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   ArrowLeft,
-  // ArrowLeftIcon,
-  // CreditCardIcon,
-  // CalendarIcon,
-  // TrendingUpIcon,
-  // TrendingDownIcon,
-  // AlertCircleIcon,
-  // ShoppingBagIcon,
-  // BarChartIcon,
-  // LightbulbIcon,
+  ArrowLeftIcon,
+  CreditCardIcon,
+  CalendarIcon,
+  TrendingUpIcon,
+  TrendingDownIcon,
+  AlertCircleIcon,
+  ShoppingBagIcon,
+  BarChartIcon,
+  LightbulbIcon,
 } from 'lucide-react';
 import { Title, Subtitle, ContentContainer } from '../../styles/common';
 import Layout from '../../components/template';
@@ -26,15 +26,15 @@ import {
   BalanceAmount,
   TransactionContainer,
   TransactionDetailsContainer,
-  // GridLayout,
+  GridLayout,
   HeaderContent,
-  // SpendingOverviewContainer,
-  // SpendingPredicationContainer,
-  // RecentTransactionContainer,
-  // FinancialTipsContainer,
-  // HeaderContainer,
-  // FirstColumn,
-  // SecondColumn,
+  SpendingOverviewContainer,
+  SpendingPredicationContainer,
+  RecentTransactionContainer,
+  FinancialTipsContainer,
+  HeaderContainer,
+  FirstColumn,
+  SecondColumn,
   Pagination,
 } from './styles';
 import { extractAccountNumber } from '../../helpers';
@@ -183,7 +183,7 @@ const Dashboard: FC = () => {
             </AccountDetail>
           </AccountDetailsSection>
         </AccountDetailsContainer>
-        {/* ---------- Tabs ---------- */}
+        {/* ---------- Tabs ----------
         <div>
           <Button variant="outline" onClick={() => setTabs('Transactions')}>
             Transactions
@@ -230,8 +230,8 @@ const Dashboard: FC = () => {
             </Pagination>
           </TransactionContainer>
         )}
-        {tabs === 'Savings' && <div>Saving Goals</div>}
-        {/* <GridLayout>
+        {tabs === 'Savings' && <div>Saving Goals</div>} */}
+        <GridLayout>
           <FirstColumn>
             <SpendingOverviewContainer>
               <HeaderContainer>
@@ -280,7 +280,7 @@ const Dashboard: FC = () => {
                   </div>
                 ))}
               </div>
-              <Pagination>
+              {/* <Pagination>
                 <Button
                   variant="outline"
                   size="sm"
@@ -303,10 +303,10 @@ const Dashboard: FC = () => {
                 <Button variant="outline" size="sm" onClick={handleNextPage}>
                   Next
                 </Button>
-              </Pagination>
+              </Pagination> */}
             </RecentTransactionContainer>
           </SecondColumn>
-        </GridLayout> */}
+        </GridLayout>
       </ContentContainer>
     </Layout>
   );

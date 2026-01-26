@@ -9,10 +9,11 @@ import {
   HeaderContent,
 } from '../../styles/common';
 import { InstitutionCard } from '../../components/molecules/card';
-import { fetchInstitutions } from '../../connector/institutions';
-import Pagination from '../../components/molecules/pagination';
-import { map } from 'lodash';
-import Button from '../../components/atoms/button';
+// import { fetchInstitutions } from '../../connector/institutions';
+import { fetchInstitutions } from '../../connector/institutions'
+// import Pagination from '../../components/molecules/pagination';
+// import { map } from 'lodash';
+// import Button from '../../components/atoms/button';
 
 interface InstitutionProps {
   _id: string;
@@ -23,7 +24,7 @@ interface InstitutionProps {
   logo: string;
   max_access_valid_for_days: string;
 }
-const options = [6, 9, 12];
+// const options = [6, 9, 12];
 
 const Institutions: FC = () => {
   const [institutions, setInstitutions] = useState<InstitutionProps[]>([]);
@@ -31,17 +32,19 @@ const Institutions: FC = () => {
   // this is to capture index for current institutions card
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [message, setMessage] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [limit, setLimit] = useState(9);
-  const [totalPages, setTotalPages] = useState(0);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [limit, setLimit] = useState(9);
+  // const [totalPages, setTotalPages] = useState(0);
   // const [offSet, setOffset] = useState(0);
 
   const getInstitutions = useCallback(async () => {
-    const res = await fetchInstitutions({ currentPage, limit });
-    setInstitutions(res.institutions);
-    setCurrentPage(res.pagination.pages);
-    setTotalPages(res.pagination.totalPages);
-  }, [currentPage, limit]);
+    // const res = await fetchInstitutions({ currentPage, limit });
+    setInstitutions(fetchInstitutions);
+    // setCurrentPage(res.pagination.pages);
+    // setTotalPages(res.pagination.totalPages);
+  }, [
+    // currentPage, limit
+  ]);
 
   useEffect(() => {
     getInstitutions();
@@ -77,19 +80,19 @@ const Institutions: FC = () => {
     form.submit();
   };
 
-  const handleChangePage = (
-    evt: MouseEvent<HTMLButtonElement>,
-    pageNumber: number
-  ) => {
-    evt.preventDefault();
-    setCurrentPage(pageNumber);
-  };
+  // const handleChangePage = (
+  //   evt: MouseEvent<HTMLButtonElement>,
+  //   pageNumber: number
+  // ) => {
+  //   evt.preventDefault();
+  //   setCurrentPage(pageNumber);
+  // };
 
-  const handleSwitchLimit = (newLimit: number) => {
-    setLimit(newLimit);
-    console.log(newLimit);
-    setCurrentPage(1);
-  };
+  // const handleSwitchLimit = (newLimit: number) => {
+  //   setLimit(newLimit);
+  //   console.log(newLimit);
+  //   setCurrentPage(1);
+  // };
 
   return (
     <Layout>
@@ -102,7 +105,7 @@ const Institutions: FC = () => {
           </Subtitle>
           {message && <p>{message}</p>}
         </HeaderContent>
-        <div>
+        {/*<div>
           {map(options, (option: number, i: number) => {
             return (
               <Button
@@ -115,7 +118,7 @@ const Institutions: FC = () => {
               </Button>
             );
           })}
-        </div>
+        </div>*/}
         <InstitutionGrid>
           {institutions?.map((institution: InstitutionProps, index: number) => (
             <InstitutionCard
@@ -139,10 +142,10 @@ const Institutions: FC = () => {
             </div>
           ))}
         </select> */}
-        <Pagination
+        {/* <Pagination
           totalPages={totalPages}
           handleChangePage={handleChangePage}
-        />
+        /> */}
       </ContentContainer>
     </Layout>
   );

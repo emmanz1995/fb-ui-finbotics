@@ -88,15 +88,21 @@ const AccountsDashboard: FC = () => {
     setBalances(balancesRes);
   };
 
-  const groupBalancesByAccountId = accountDetails.reduce(
-    (acc: any, detail: any) => {
-      if (!acc[currentUser.accountIds[0] === {}]) {
-        acc[currentUser.accountIds[0]] = {};
-      }
-    },
-    {}
-  );
-
+  // const groupBalancesByAccountId = accountDetails.reduce(
+  //   (acc: any, detail: any) => {
+  //     let accountId;
+  //     if (typeof detail === 'object' && 'accountDetailsId' in detail && detail)
+  //       accountId = detail?.accountDetailsId ?? 'Not Found';
+  //     if (!acc[accountId]) {
+  //       acc[accountId] = {};
+  //     }
+  //     acc[accountId].push(detail);
+  //     return acc;
+  //   },
+  //   {} as Record<string, []>
+  // );
+  // console.log('...groupBalancesByAccountId', groupBalancesByAccountId);
+  
   const mapBalancesToAccount = () => {
     const balanceToReturn: BalanceToReturnProp = {};
     const balanceToDetails = accountDetails?.map(

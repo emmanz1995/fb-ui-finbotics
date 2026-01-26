@@ -34,11 +34,8 @@ export const onIngestAccountData = async (accountId: string) => {
 export const getAccountDetails = async () => {
   try {
     const response = await axios({
-      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/details/get-accounts`,
+      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/account/details`,
       method: 'GET',
-      headers: authHeader(
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'
-      ),
     });
 
     return response.data;
@@ -110,11 +107,11 @@ export const getBalances = async (accountId: string) => {
 export const getAllBalances = async (accountId: string) => {
   try {
     const response = await axios({
-      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/details/get-balance`,
+      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/details/balances`,
       method: 'GET',
-      headers: authHeader(
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'
-      ),
+      // headers: authHeader(
+      //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'
+      // ),
       params: {
         accountId,
       },
