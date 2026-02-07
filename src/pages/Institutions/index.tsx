@@ -10,7 +10,7 @@ import {
 } from '../../styles/common';
 import { InstitutionCard } from '../../components/molecules/card';
 // import { fetchInstitutions } from '../../connector/institutions';
-import { fetchInstitutions } from '../../connector/institutions'
+import { fetchInstitutions } from '../../connector/institutions';
 // import Pagination from '../../components/molecules/pagination';
 // import { map } from 'lodash';
 // import Button from '../../components/atoms/button';
@@ -37,14 +37,17 @@ const Institutions: FC = () => {
   // const [totalPages, setTotalPages] = useState(0);
   // const [offSet, setOffset] = useState(0);
 
-  const getInstitutions = useCallback(async () => {
-    // const res = await fetchInstitutions({ currentPage, limit });
-    setInstitutions(fetchInstitutions);
-    // setCurrentPage(res.pagination.pages);
-    // setTotalPages(res.pagination.totalPages);
-  }, [
-    // currentPage, limit
-  ]);
+  const getInstitutions = useCallback(
+    async () => {
+      // const res = await fetchInstitutions({ currentPage, limit });
+      setInstitutions(fetchInstitutions);
+      // setCurrentPage(res.pagination.pages);
+      // setTotalPages(res.pagination.totalPages);
+    },
+    [
+      // currentPage, limit
+    ]
+  );
 
   useEffect(() => {
     getInstitutions();

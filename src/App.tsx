@@ -4,6 +4,7 @@ import AccountsDashboard from './pages/AccountsDashboard';
 import Institutions from './pages/Institutions';
 import CallbackPage from './pages/Callback';
 import Dashboard from './pages/Dashboard';
+import Transactions from './pages/Transactions';
 
 function App() {
   return (
@@ -15,6 +16,10 @@ function App() {
         <Route path="/" element={<AccountsDashboard />} />
         <Route path="/dashboard/:accountId" element={<Dashboard />} />
         <Route path="/profile" element={<h1>Your Profile</h1>} />
+        <Route
+          path="/view-transactions/:accountId"
+          element={<Transactions />}
+        />
       </Routes>
     </>
   );

@@ -1,17 +1,20 @@
 import { useState, useEffect } from 'react';
-import type { FC, MouseEvent } from 'react';
+import type { FC } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   ArrowLeft,
-  ArrowLeftIcon,
   CreditCardIcon,
-  CalendarIcon,
   TrendingUpIcon,
-  TrendingDownIcon,
-  AlertCircleIcon,
-  ShoppingBagIcon,
   BarChartIcon,
   LightbulbIcon,
+  ArrowDownLeftIcon,
+  ArrowUpRightIcon,
+  CarIcon,
+  CoffeeIcon,
+  HeartIcon,
+  ShoppingBagIcon,
+  WalletIcon,
+  HeartPlus,
 } from 'lucide-react';
 import { Title, Subtitle, ContentContainer } from '../../styles/common';
 import Layout from '../../components/template';
@@ -24,8 +27,6 @@ import {
   AccountDetail,
   BalanceInfo,
   BalanceAmount,
-  TransactionContainer,
-  TransactionDetailsContainer,
   GridLayout,
   HeaderContent,
   SpendingOverviewContainer,
@@ -36,6 +37,15 @@ import {
   FirstColumn,
   SecondColumn,
   Pagination,
+  TransactionTable,
+  TransactionRow,
+  TransactionInfo,
+  TransactionName,
+  TransactionAmount,
+  TransactionCategory,
+  TransactionDate,
+  TransactionMeta,
+  IconContainer,
 } from './styles';
 import { extractAccountNumber } from '../../helpers';
 import Button from '../../components/atoms/button';
@@ -89,7 +99,6 @@ const Dashboard: FC = () => {
     ownerName: '',
   });
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [tabs, setTabs] = useState('Transactions');
   const totalPages = transactions.pagination.totalPages;
   const navigate = useNavigate();
   const params = useParams();
@@ -121,25 +130,33 @@ const Dashboard: FC = () => {
     getAccountDetail();
   }, [accountId]);
   const scan = detail?.scan ? detail?.scan : '';
-  const { accountNumber } = extractAccountNumber(scan);
+  const { accountNumber, sortCode } = extractAccountNumber(scan);
 
-  const handleSelectPage = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
-  const handleNextPage = (evt: MouseEvent<HTMLButtonElement>) => {
-    evt.preventDefault();
-    if (currentPage < totalPages && currentPage >= 0)
-      setCurrentPage(currentPage + 1);
-  };
-  const handlePreviousPage = (evt: MouseEvent<HTMLButtonElement>) => {
-    evt.preventDefault();
-    if (currentPage > 0 && currentPage <= totalPages)
-      setCurrentPage(currentPage - 1);
-  };
   const pages = [];
   for (let i = 0; totalPages > i; i++) {
     pages.push(i + 1);
   }
+
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case 'HEALTH':
+        return <HeartPlus size={18} />;
+      case 'FOOD':
+        return <CoffeeIcon size={18} />;
+      case 'TRANSPORTATION':
+        return <CarIcon size={18} />;
+      case 'SHOPPING':
+        return <ShoppingBagIcon size={18} />;
+      case 'ENTERTAINMENT':
+        return <HeartIcon size={18} />;
+      case 'INCOME':
+      case 'PAYMENT':
+      case 'TRANSFER':
+        return <WalletIcon size={18} />;
+      default:
+        return <ShoppingBagIcon size={18} />;
+    }
+  };
 
   return (
     <Layout>
@@ -154,7 +171,7 @@ const Dashboard: FC = () => {
           <AccountHeader>
             <AccountInfo>
               <h3>{detail.currency} Account</h3>
-              <Subtitle>IBAN: GB29NWBK60161331926819</Subtitle>
+              <Subtitle>IBAN: {detail?.iban}</Subtitle>
             </AccountInfo>
             <BalanceInfo>
               <Subtitle>Current Balance</Subtitle>
@@ -174,8 +191,8 @@ const Dashboard: FC = () => {
               <h4>{accountNumber}</h4>
             </AccountDetail>
             <AccountDetail>
-              <Subtitle>Currency</Subtitle>
-              <h4>GBP</h4>
+              <Subtitle>Sort Code</Subtitle>
+              <h4>{sortCode}</h4>
             </AccountDetail>
             <AccountDetail>
               <Subtitle>Last Updated</Subtitle>
@@ -183,54 +200,6 @@ const Dashboard: FC = () => {
             </AccountDetail>
           </AccountDetailsSection>
         </AccountDetailsContainer>
-        {/* ---------- Tabs ----------
-        <div>
-          <Button variant="outline" onClick={() => setTabs('Transactions')}>
-            Transactions
-          </Button>
-          <Button variant="outline" onClick={() => setTabs('Savings')}>
-            Saving Goals
-          </Button>
-        </div>
-        {tabs === 'Transactions' && (
-          <TransactionContainer>
-            {transactions.transactions.map(transaction => (
-              <TransactionDetailsContainer key={transaction.id}>
-                <AccountDetail>
-                  <Subtitle>Purchase</Subtitle>
-                  <h4>{transaction.details ?? 'Untitled'}</h4>
-                </AccountDetail>
-                <AccountDetail>
-                  <Subtitle>Amount</Subtitle>
-                  <h4>
-                    {transaction.currency} {transaction.amount}
-                  </h4>
-                </AccountDetail>
-              </TransactionDetailsContainer>
-            ))}
-            <Pagination>
-              <Button variant="outline" size="sm" onClick={handlePreviousPage}>
-                Previous
-              </Button>
-              {pages.map((pageNum: number, i: number) => {
-                return (
-                  <Button
-                    variant="primary"
-                    size="sm"
-                    onClick={() => handleSelectPage(pageNum)}
-                    key={i}
-                  >
-                    {pageNum}
-                  </Button>
-                );
-              })}
-              <Button variant="outline" size="sm" onClick={handleNextPage}>
-                Next
-              </Button>
-            </Pagination>
-          </TransactionContainer>
-        )}
-        {tabs === 'Savings' && <div>Saving Goals</div>} */}
         <GridLayout>
           <FirstColumn>
             <SpendingOverviewContainer>
@@ -258,52 +227,43 @@ const Dashboard: FC = () => {
                 <LightbulbIcon />
                 <h3>Recent Transactions</h3>
               </HeaderContainer>
-              <div>
-                {transactions.transactions.map(transaction => (
-                  <div key={transaction.id}>
-                    <AccountDetailsSection>
-                      <AccountDetail>
-                        <Subtitle>Type</Subtitle>
-                        <h4>{transaction.type}</h4>
-                      </AccountDetail>
-                      <AccountDetail>
-                        <Subtitle>Amount</Subtitle>
-                        <h4>
-                          {transaction.currency} {transaction.amount}
-                        </h4>
-                      </AccountDetail>
-                      <AccountDetail>
-                        <Subtitle>Metadata</Subtitle>
-                        <h4>{JSON.stringify(transaction.metadata)}</h4>
-                      </AccountDetail>
-                    </AccountDetailsSection>
-                  </div>
+              <TransactionTable>
+                {transactions.transactions.map((transaction: any) => (
+                  <TransactionRow key={transaction.id}>
+                    <IconContainer $category={transaction.category}>
+                      {getCategoryIcon(transaction?.category)}
+                    </IconContainer>
+                    <TransactionInfo>
+                      <TransactionName>
+                        {transaction.description}
+                      </TransactionName>
+                      <TransactionMeta>
+                        <TransactionCategory>
+                          {transaction.category}
+                        </TransactionCategory>
+                        <TransactionDate>{transaction.date}</TransactionDate>
+                      </TransactionMeta>
+                    </TransactionInfo>
+                    {/* TODO: Future feature to be explored */}
+                    <TransactionAmount $type={transaction.type}>
+                      {transaction.amount.startsWith('-') ? (
+                        <ArrowDownLeftIcon size={16} />
+                      ) : (
+                        <ArrowUpRightIcon size={16} />
+                      )}
+                      {new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'GBP',
+                      }).format(transaction.amount)}
+                    </TransactionAmount>
+                  </TransactionRow>
                 ))}
-              </div>
-              {/* <Pagination>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handlePreviousPage}
-                >
-                  Previous
-                </Button>
-                {pages.map((pageNum: number, i: number) => {
-                  return (
-                    <Button
-                      variant="primary"
-                      size="sm"
-                      onClick={() => handleSelectPage(pageNum)}
-                      key={i}
-                    >
-                      {pageNum}
-                    </Button>
-                  );
-                })}
-                <Button variant="outline" size="sm" onClick={handleNextPage}>
-                  Next
-                </Button>
-              </Pagination> */}
+                <span>
+                  <a href={`/view-transactions/${accountId}`}>
+                    View all Transactions
+                  </a>
+                </span>
+              </TransactionTable>
             </RecentTransactionContainer>
           </SecondColumn>
         </GridLayout>

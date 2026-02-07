@@ -61,9 +61,6 @@ export interface AccountDetailsProps {
 }
 
 const AccountsDashboard: FC = () => {
-  const currentUser = {
-    accountIds: ['c7d8ae51-589a-40cf-9d71-4c3300fe48b8'],
-  };
   const [accountDetails, setAccountDetails] = useState<AccountDetailsProps[]>(
     []
   );
@@ -102,7 +99,7 @@ const AccountsDashboard: FC = () => {
   //   {} as Record<string, []>
   // );
   // console.log('...groupBalancesByAccountId', groupBalancesByAccountId);
-  
+
   const mapBalancesToAccount = () => {
     const balanceToReturn: BalanceToReturnProp = {};
     const balanceToDetails = accountDetails?.map(

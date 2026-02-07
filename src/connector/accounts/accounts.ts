@@ -55,11 +55,8 @@ export const getAccountDetails = async () => {
 export const getAccountDetailsByAccountId = async (accountId: string) => {
   try {
     const response = await axios({
-      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/details/get-account/${accountId}`,
+      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/account?accountId=${accountId}`,
       method: 'GET',
-      headers: authHeader(
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'
-      ),
     });
 
     console.log('...data', response?.data);
@@ -109,9 +106,6 @@ export const getAllBalances = async (accountId: string) => {
     const response = await axios({
       url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/details/balances`,
       method: 'GET',
-      // headers: authHeader(
-      //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'
-      // ),
       params: {
         accountId,
       },
@@ -147,17 +141,11 @@ export const getTransactions = async (
     searchParams.append('limit', pagination?.limit.toString());
   }
 
-  console.log('...searchParams', searchParams);
   try {
     const { data } = await axios({
-      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/details/get-transactions?${searchParams.toString()}`,
+      url: `${import.meta.env.VITE_API_URL_ACCOUNTS}/api/v1/transactions?${searchParams.toString()}`,
       method: 'GET',
-      headers: authHeader(
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'
-      ),
     });
-
-    console.log('...data', data);
 
     return data;
   } catch (err: Error | unknown) {

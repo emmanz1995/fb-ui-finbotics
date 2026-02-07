@@ -124,3 +124,124 @@ export const TransactionDetailsContainer = styled.div<ThemeProps>`
 // export const AccountDetailsContainer = styled.div``
 // export const AccountDetailsContainer = styled.div``
 // export const AccountDetailsContainer = styled.div``
+
+export const TransactionListContainer = styled.div<ThemeProps>`
+  background-color: ${({ theme }) => theme.colors.text.white};
+  border-radius: 6px;
+  box-shadow: ${({ theme }) => theme.shadows.md};
+  overflow: hidden;
+`;
+export const TransactionHeader = styled.div<ThemeProps>`
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+`;
+export const TransactionTitle = styled.h3<ThemeProps>`
+  font-size: ${({ theme }) => theme.fontSizes.lg};
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.text.primary};
+  margin-bottom: ${({ theme }) => theme.space.xs};
+`;
+export const TransactionSubtitle = styled.p<ThemeProps>`
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  color: ${({ theme }) => theme.colors.text.secondary};
+`;
+export const TransactionTable = styled.div`
+  width: 100%;
+`;
+export const TransactionRow = styled.div<ThemeProps>`
+  display: flex;
+  align-items: center;
+  padding: ${({ theme }) => theme.space.md} ${({ theme }) => theme.space.lg};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.text.light};
+  transition: background-color 0.2s ease;
+  &:last-child {
+    border-bottom: none;
+  }
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.text.light};
+  }
+`;
+export const TransactionInfo = styled.div`
+  flex: 1;
+`;
+export const TransactionName = styled.div<ThemeProps>`
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.text.primary};
+  margin-bottom: ${({ theme }) => theme.space.xs};
+`;
+export const TransactionMeta = styled.div<ThemeProps>`
+  display: flex;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  color: ${({ theme }) => theme.colors.text.secondary};
+`;
+export const TransactionCategory = styled.span<ThemeProps>`
+  margin-right: ${({ theme }) => theme.space.md};
+`;
+export const TransactionDate = styled.span``;
+export const TransactionAmount = styled.div<
+  {
+    $type: 'credit' | 'debit';
+  },
+  ThemeProps
+>`
+  font-weight: 600;
+  color: ${({ $type, theme }) =>
+    $type === 'credit' ? theme.colors.success : theme.colors.text.primary};
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.space.xs};
+`;
+
+export const IconContainer = styled.div<{
+  $category: string;
+}>`
+  width: 40px;
+  height: 40px;
+  border-radius: ${({ theme }) => theme.radii.md};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: ${({ theme }) => theme.space.md};
+  background-color: ${({ $category, theme }) => {
+    switch ($category.toLowerCase()) {
+      case 'groceries':
+        return `${theme.colors.success}15`;
+      case 'dining':
+        return `${theme.colors.warning}15`;
+      case 'transportation':
+        return `${theme.colors.info}15`;
+      case 'shopping':
+        return `${theme.colors.secondary}15`;
+      case 'utilities':
+        return `${theme.colors.gray[500]}15`;
+      case 'entertainment':
+        return `${theme.colors.secondary}15`;
+      case 'income':
+      case 'payment':
+        return `${theme.colors.success}15`;
+      default:
+        return theme.colors.text.light;
+    }
+  }};
+  color: ${({ $category, theme }) => {
+    switch ($category.toLowerCase()) {
+      case 'groceries':
+        return theme.colors.success;
+      case 'dining':
+        return theme.colors.warning;
+      case 'transportation':
+        return theme.colors.info;
+      case 'shopping':
+        return theme.colors.secondary;
+      case 'utilities':
+        return theme.colors.gray[500];
+      case 'entertainment':
+        return theme.colors.secondary;
+      case 'income':
+      case 'payment':
+        return theme.colors.success;
+      default:
+        return theme.colors.text.secondary;
+    }
+  }};
+`;

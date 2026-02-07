@@ -4,7 +4,7 @@ const Select: FC<{ options: { value: string; label: string }[] }> = ({
   options,
 }) => {
   return (
-    <select>
+    <select style={{ padding: '8px' }}>
       {options.map(option => (
         <option key={option.value} value={option.value}>
           {option.label}
