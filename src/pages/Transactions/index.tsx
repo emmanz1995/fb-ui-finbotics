@@ -56,7 +56,7 @@ const Transactions: FC = () => {
   });
   const [currentPage, setCurrentPage] = useState(1);
   // const [limit, setLimit] = useState(0);
-  const limit = 10
+  const limit = 10;
   const totalPages = transactions.pagination.totalPages;
 
   useEffect(() => {
@@ -129,29 +129,47 @@ const Transactions: FC = () => {
               <Th>Amount</Th>
             </Tr>
           </thead>
-          {trx.map(t => {
-            return (
-              <>
-                <tbody>
-                  <Tr>
-                    <Td>{t.metadata?.bookingDate}</Td>
-                    <Td>{truncateText(t?.details, 10)}</Td>
-                    <Td>{t?.category}</Td>
-                    <Td>{t.amount.startsWith('-') ? 'Expense' : 'Income'}</Td>
-                    <Td>{t.amount}</Td>
-                  </Tr>
-                </tbody>
-              </>
-            );
-          })}
+          {trx.map(
+            (t: {
+              amount: any;
+              category?: string;
+              metadata: any;
+              details?: string;
+            }) => {
+              return (
+                <>
+                  <tbody>
+                    <Tr>
+                      <Td>{t.metadata?.bookingDate}</Td>
+                      <Td>{truncateText(t?.details, 8)}</Td>
+                      <Td>{t?.category}</Td>
+                      <Td>{t.amount.startsWith('-') ? 'Expense' : 'Income'}</Td>
+                      <Td>
+                        {new Intl.NumberFormat('en-GB', {
+                          style: 'currency',
+                          currency: 'GBP',
+                        }).format(t.amount)}
+                      </Td>
+                    </Tr>
+                  </tbody>
+                </>
+              );
+            }
+          )}
         </Table>
       </TableSection>
       {/* -------- Pagination -------- */}
       <FooterSection>
-        <p>Showing {currentPage} to {limit} of {totalPages} results</p>
+        <p>
+          Showing {currentPage} to {limit} of {totalPages} results
+        </p>
         <span>
-          <Button variant='outline' onClick={handlePreviousPage}>Previous</Button>{' '}
-          <Button variant='outline' onClick={handleNextPage}>Next</Button>
+          <Button variant="outline" onClick={handlePreviousPage}>
+            Previous
+          </Button>{' '}
+          <Button variant="outline" onClick={handleNextPage}>
+            Next
+          </Button>
         </span>
       </FooterSection>
     </Layout>
