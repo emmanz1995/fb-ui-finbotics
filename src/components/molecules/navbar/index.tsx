@@ -6,7 +6,7 @@ import {
   // ArrowLeftIcon,
   // CreditCardIcon,
   // AlertCircleIcon,
-  User2Icon,
+  // User2Icon,
   // LogOutIcon,
 } from 'lucide-react';
 import styled from 'styled-components';

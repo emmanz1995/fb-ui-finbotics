@@ -25,14 +25,14 @@ export const Table = styled.table`
 export const Th = styled.th<ThemeProps>`
   text-align: left;
   padding: 1rem 1.5rem;
-  background-color: ${props => props.theme.colors.border};
-  color: ${props => props.theme.colors.text.secondary};
+  background-color: ${props => props.theme.colors?.border};
+  color: ${props => props.theme.colors?.text?.secondary};
   font-weight: 600;
   font-size: 0.875rem;
-  border-bottom: 1px solid ${props => props.theme.colors.border};
+  border-bottom: 1px solid ${props => props.theme.colors?.border};
 `;
 export const Tr = styled.tr<ThemeProps>`
-  border-bottom: 1px solid ${props => props.theme.colors.border};
+  border-bottom: 1px solid ${props => props.theme.colors?.border};
   transition: background-color 0.2s ease;
 
   &:last-child {
@@ -40,13 +40,13 @@ export const Tr = styled.tr<ThemeProps>`
   }
 
   &:hover {
-    background-color: ${props => props.theme.colors.border};
+    background-color: ${props => props.theme.colors?.border};
   }
 `;
 export const Td = styled.td<ThemeProps>`
   text-align: left;
   padding: 1rem 1.5rem;
-  background-color: ${props => props.theme.colors.text.white};
+  background-color: ${props => props.theme.colors?.text?.white};
   font-size: 0.875rem;
 `;
 

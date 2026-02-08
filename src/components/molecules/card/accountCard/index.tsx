@@ -49,11 +49,12 @@ const Card: FC<CardProps> = ({ detail, handleAccountDataSync, isLoading }) => (
       </BalanceAmount>
     </BalanceSection>
     <AccountFooter>
-      <AccountOwner to={`/dashboard/${detail.id}`}>
+      <AccountOwner href={`/dashboard/${detail.id}`}>
         {detail.ownerName}
       </AccountOwner>
       <span>
         <Button
+          data-testid="test-refresh-btn"
           variant="outline"
           size="sm"
           isLoading={isLoading}
@@ -61,7 +62,7 @@ const Card: FC<CardProps> = ({ detail, handleAccountDataSync, isLoading }) => (
         >
           <RefreshCcwIcon cursor="pointer" />
         </Button>{' '}
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" data-testid="test-del-btn">
           <TrashIcon cursor="pointer" />
         </Button>
       </span>

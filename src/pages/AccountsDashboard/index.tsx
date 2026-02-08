@@ -57,7 +57,7 @@ export interface AccountDetailsProps {
   scan: string;
   currency: string;
   ownerName: string;
-  balance: BalanceProps[];
+  balance: BalanceProps[] | any;
 }
 
 const AccountsDashboard: FC = () => {

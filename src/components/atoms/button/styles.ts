@@ -31,10 +31,10 @@ const chooseVariant = (variant: string, theme: Props) => {
     case 'outline':
       return css`
         background-color: transparent;
-        color: ${theme.colors.primary};
-        border: 1px solid ${theme.colors.primary};
+        color: ${theme.colors?.primary};
+        border: 1px solid ${theme.colors?.primary};
         &:hover:not(:disabled) {
-          background-color: ${theme.colors.primary}1a;
+          background-color: ${theme.colors?.primary}1a;
         }
       `;
     case 'ghost':
@@ -111,7 +111,7 @@ export const LoadingSpinner = styled.div<{ theme: Props }>`
   border-radius: 50%;
   border-top-color: white;
   animation: spin 0.8s linear infinite;
-  background-color: ${props => props.theme.colors.primary};
+  background-color: ${props => props.theme.colors?.primary};
   @keyframes spin {
     to {
       transform: rotate(360deg);

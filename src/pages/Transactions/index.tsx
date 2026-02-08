@@ -61,6 +61,7 @@ const Transactions: FC = () => {
 
   useEffect(() => {
     (async () => {
+      // TODO: mock this axios call
       const trx = await accountsConnector.getTransactions(accountId, {
         currentPage,
         limit,
@@ -72,26 +73,24 @@ const Transactions: FC = () => {
 
   const { transactions: trx } = transactions;
 
+  // TODO: handle event in test
   const handleNextPage = (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     if (currentPage < totalPages && currentPage >= 0)
       setCurrentPage(currentPage + 1);
   };
+
+  // handle event in test
   const handlePreviousPage = (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     if (currentPage > 0 && currentPage <= totalPages)
       setCurrentPage(currentPage - 1);
   };
 
-  const pages = [];
-  for (let i = 0; totalPages > i; i++) {
-    pages.push(i + 1);
-  }
-
   return (
     <Layout>
       <Header>
-        <h1>Transaction</h1>
+        <h1 data-testid="title-test">Transaction</h1>
         <p>
           View and filter your complete transaction history across all accounts.
         </p>
@@ -138,7 +137,7 @@ const Transactions: FC = () => {
             }) => {
               return (
                 <>
-                  <tbody>
+                  <tbody data-testid="table-test">
                     <Tr>
                       <Td>{t.metadata?.bookingDate}</Td>
                       <Td>{truncateText(t?.details, 8)}</Td>

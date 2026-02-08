@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { ThemeProps } from '../../../styles/themes';
 
 export const InputContainer = styled.div<{
   fullWidth?: boolean;
@@ -8,11 +9,11 @@ export const InputContainer = styled.div<{
   width: ${props => (props.fullWidth ? '100%' : 'auto')};
   margin-bottom: 1rem;
 `;
-export const Label = styled.label`
+export const Label = styled.label<ThemeProps>`
   font-size: 0.875rem;
   font-weight: 500;
   margin-bottom: 0.25rem;
-  color: ${props => props.theme.colors.text.primary};
+  color: ${props => props.theme?.colors?.text?.primary};
 `;
 export const InputWrapper = styled.div`
   position: relative;
@@ -27,10 +28,12 @@ export const StyledInput = styled.input<{
   width: 100%;
   padding: 0.625rem 0.75rem;
   font-size: 1rem;
-  border-radius: ${props => props.theme.radii.md};
+  border-radius: ${(props: any) => props.theme?.radii?.md};
   border: 1px solid
-    ${props =>
-      props.hasError ? props.theme.colors.danger : props.theme.colors.border};
+    ${(props: any) =>
+      props.hasError
+        ? props.theme?.colors?.danger
+        : props.theme?.colors?.border};
   background-color: white;
   transition:
     border-color 0.2s ease,
@@ -47,22 +50,24 @@ export const StyledInput = styled.input<{
     `}
   &:focus {
     outline: none;
-    border-color: ${props =>
-      props.hasError ? props.theme.colors.danger : props.theme.colors.primary};
+    border-color: ${(props: any) =>
+      props.hasError
+        ? props.theme.colors?.danger
+        : props.theme?.colors?.primary};
     box-shadow: 0 0 0 2px
-      ${props =>
+      ${(props: any) =>
         props.hasError
-          ? props.theme.colors.danger + '33'
-          : props.theme.colors.primary + '33'};
+          ? props.theme?.colors?.danger + '33'
+          : props.theme?.colors?.primary + '33'};
   }
   &:disabled {
-    background-color: ${props => props.theme.colors.background};
+    background-color: ${(props: any) => props.theme?.colors?.background};
     cursor: not-allowed;
   }
 `;
-export const ErrorMessage = styled.p`
+export const ErrorMessage = styled.p<ThemeProps>`
   font-size: 0.75rem;
-  color: ${props => props.theme.colors.danger};
+  color: ${props => props.theme?.colors?.danger};
   margin-top: 0.25rem;
 `;
 export const IconWrapper = styled.div<{
@@ -72,7 +77,7 @@ export const IconWrapper = styled.div<{
   top: 50%;
   transform: translateY(-50%);
   ${props => (props.position === 'left' ? 'left: 0.75rem;' : 'right: 0.75rem;')}
-  color: ${props => props.theme.colors.text.secondary};
+  color: ${(props: any) => props.theme?.colors?.text.secondary};
   display: flex;
   align-items: center;
   justify-content: center;
