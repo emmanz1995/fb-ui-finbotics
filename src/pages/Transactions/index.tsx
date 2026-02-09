@@ -163,10 +163,18 @@ const Transactions: FC = () => {
           Showing {currentPage} to {limit} of {totalPages} results
         </p>
         <span>
-          <Button variant="outline" onClick={handlePreviousPage}>
+          <Button
+            variant="outline"
+            onClick={handlePreviousPage}
+            data-testid="prev-btn"
+          >
             Previous
           </Button>{' '}
-          <Button variant="outline" onClick={handleNextPage}>
+          <Button
+            variant="outline"
+            onClick={handleNextPage}
+            data-testid="next-btn"
+          >
             Next
           </Button>
         </span>
