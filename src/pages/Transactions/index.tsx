@@ -55,13 +55,11 @@ const Transactions: FC = () => {
     transactions: [],
   });
   const [currentPage, setCurrentPage] = useState(1);
-  // const [limit, setLimit] = useState(0);
   const limit = 10;
   const totalPages = transactions.pagination.totalPages;
 
   useEffect(() => {
     (async () => {
-      // TODO: mock this axios call
       const trx = await accountsConnector.getTransactions(accountId, {
         currentPage,
         limit,
@@ -73,14 +71,12 @@ const Transactions: FC = () => {
 
   const { transactions: trx } = transactions;
 
-  // TODO: handle event in test
   const handleNextPage = (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     if (currentPage < totalPages && currentPage >= 0)
       setCurrentPage(currentPage + 1);
   };
 
-  // handle event in test
   const handlePreviousPage = (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     if (currentPage > 0 && currentPage <= totalPages)
@@ -99,7 +95,7 @@ const Transactions: FC = () => {
       <FiltersSection>
         <FilterFlex>
           <div>
-            <Input type="search" placeholder="Search Transactions" />
+            <Input type="search" placeholder="Search Transactions" fullWidth />
           </div>
           <SmallSelectionWrapper>
             <div>

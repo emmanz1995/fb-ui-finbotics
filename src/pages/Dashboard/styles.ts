@@ -19,8 +19,8 @@ export const HeaderContent = styled.div<ThemeProps>`
 
 export const AccountDetailsContainer = styled.div<ThemeProps>`
   padding: 1.5rem;
-  border-radius: ${props => props.theme.radii.lg};
-  box-shadow: ${props => props.theme.shadows.lg};
+  border-radius: ${props => props.theme.radii?.lg};
+  box-shadow: ${props => props.theme.shadows?.lg};
   background-color: white;
 `;
 
@@ -44,41 +44,41 @@ export const AccountDetailsSection = styled.div`
 `;
 
 export const AccountDetail = styled.div<ThemeProps>`
-  background-color: ${props => props.theme.colors.background};
+  background-color: ${props => props.theme.colors?.background};
   padding: 1.5rem;
-  border-radius: ${props => props.theme.radii.lg};
+  border-radius: ${props => props.theme?.radii?.lg};
 `;
 
 export const SpendingOverviewContainer = styled.div<ThemeProps>`
-  box-shadow: ${props => props.theme.shadows.lg};
-  background-color: ${props => props.theme.colors.text.white};
+  box-shadow: ${props => props.theme.shadows?.lg};
+  background-color: ${props => props.theme.colors?.text?.white};
   padding: 1.5rem;
   height: 400px;
-  border-radius: ${props => props.theme.radii.lg};
+  border-radius: ${props => props.theme.radii?.lg};
   width: 100%;
   margin-bottom: 1.5rem;
 `;
 export const SpendingPredicationContainer = styled.div<ThemeProps>`
-  box-shadow: ${props => props.theme.shadows.lg};
-  background-color: ${props => props.theme.colors.text.white};
+  box-shadow: ${props => props.theme.shadows?.lg};
+  background-color: ${props => props.theme.colors?.text?.white};
   padding: 1.5rem;
   height: 350px;
-  border-radius: ${props => props.theme.radii.lg};
+  border-radius: ${props => props.theme.radii?.lg};
   margin-bottom: 1.5rem;
 `;
 export const RecentTransactionContainer = styled.div<ThemeProps>`
-  box-shadow: ${props => props.theme.shadows.lg};
-  background-color: ${props => props.theme.colors.text.white};
+  box-shadow: ${props => props.theme.shadows?.lg};
+  background-color: ${props => props.theme?.colors?.text?.white};
   padding: 1.5rem;
   height: 500px;
-  border-radius: ${props => props.theme.radii.lg};
+  border-radius: ${props => props.theme.radii?.lg};
 `;
 export const FinancialTipsContainer = styled.div<ThemeProps>`
-  box-shadow: ${props => props.theme.shadows.lg};
-  background-color: ${props => props.theme.colors.text.white};
+  box-shadow: ${props => props.theme.shadows?.lg};
+  background-color: ${props => props.theme.colors?.text?.white};
   padding: 1.5rem;
   height: 400px;
-  border-radius: ${props => props.theme.radii.lg};
+  border-radius: ${props => props.theme.radii?.lg};
 `;
 export const HeaderContainer = styled.span`
   display: flex;
@@ -110,7 +110,7 @@ export const Pagination = styled.div`
 export const StyledTabs = styled.div``;
 export const StyledTabsOption = styled.div``;
 export const TransactionContainer = styled.div<ThemeProps>`
-  background-color: ${props => props.theme.colors.text.white};
+  background-color: ${props => props.theme.colors?.text?.white};
   width: 100%;
 `;
 export const TransactionDetailsContainer = styled.div<ThemeProps>`
@@ -126,9 +126,9 @@ export const TransactionDetailsContainer = styled.div<ThemeProps>`
 // export const AccountDetailsContainer = styled.div``
 
 export const TransactionListContainer = styled.div<ThemeProps>`
-  background-color: ${({ theme }) => theme.colors.text.white};
+  background-color: ${({ theme }) => theme.colors?.text?.white};
   border-radius: 6px;
-  box-shadow: ${({ theme }) => theme.shadows.md};
+  box-shadow: ${({ theme }) => theme.shadows?.md};
   overflow: hidden;
 `;
 export const TransactionHeader = styled.div<ThemeProps>`
@@ -138,12 +138,12 @@ export const TransactionHeader = styled.div<ThemeProps>`
 export const TransactionTitle = styled.h3<ThemeProps>`
   font-size: ${({ theme }) => theme.fontSizes.lg};
   font-weight: 600;
-  color: ${({ theme }) => theme.colors.text.primary};
-  margin-bottom: ${({ theme }) => theme.space.xs};
+  color: ${({ theme }) => theme.colors?.text?.primary};
+  margin-bottom: ${({ theme }) => theme.space?.xs};
 `;
 export const TransactionSubtitle = styled.p<ThemeProps>`
   font-size: ${({ theme }) => theme.fontSizes.sm};
-  color: ${({ theme }) => theme.colors.text.secondary};
+  color: ${({ theme }) => theme.colors?.text?.secondary};
 `;
 export const TransactionTable = styled.div`
   width: 100%;
@@ -152,13 +152,13 @@ export const TransactionRow = styled.div<ThemeProps>`
   display: flex;
   align-items: center;
   padding: ${({ theme }) => theme.space.md} ${({ theme }) => theme.space.lg};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.text.light};
+  border-bottom: 1px solid ${({ theme }) => theme.colors?.text?.light};
   transition: background-color 0.2s ease;
   &:last-child {
     border-bottom: none;
   }
   &:hover {
-    background-color: ${({ theme }) => theme.colors.text.light};
+    background-color: ${({ theme }) => theme.colors?.text?.light};
   }
 `;
 export const TransactionInfo = styled.div`
@@ -166,13 +166,13 @@ export const TransactionInfo = styled.div`
 `;
 export const TransactionName = styled.div<ThemeProps>`
   font-weight: 500;
-  color: ${({ theme }) => theme.colors.text.primary};
+  color: ${({ theme }) => theme.colors?.text?.primary};
   margin-bottom: ${({ theme }) => theme.space.xs};
 `;
 export const TransactionMeta = styled.div<ThemeProps>`
   display: flex;
-  font-size: ${({ theme }) => theme.fontSizes.sm};
-  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: ${({ theme }) => theme.fontSizes?.sm};
+  color: ${({ theme }) => theme.colors?.text?.secondary};
 `;
 export const TransactionCategory = styled.span<ThemeProps>`
   margin-right: ${({ theme }) => theme.space.md};
@@ -185,11 +185,11 @@ export const TransactionAmount = styled.div<
   ThemeProps
 >`
   font-weight: 600;
-  color: ${({ $type, theme }) =>
-    $type === 'credit' ? theme.colors.success : theme.colors.text.primary};
+  color: ${({ $type, theme }: any) =>
+    $type === 'credit' ? theme.colors?.success : theme.colors?.text?.primary};
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => theme.space.xs};
+  gap: ${({ theme }: any) => theme.space?.xs};
 `;
 
 export const IconContainer = styled.div<{
@@ -197,51 +197,51 @@ export const IconContainer = styled.div<{
 }>`
   width: 40px;
   height: 40px;
-  border-radius: ${({ theme }) => theme.radii.md};
+  border-radius: ${({ theme }: any) => theme.radii?.md};
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: ${({ theme }) => theme.space.md};
-  background-color: ${({ $category, theme }) => {
+  margin-right: ${({ theme }: any) => theme.space?.md};
+  background-color: ${({ $category, theme }: any) => {
     switch ($category.toLowerCase()) {
       case 'groceries':
-        return `${theme.colors.success}15`;
+        return `${theme.colors?.success}15`;
       case 'dining':
-        return `${theme.colors.warning}15`;
+        return `${theme.colors?.warning}15`;
       case 'transportation':
-        return `${theme.colors.info}15`;
+        return `${theme.colors?.info}15`;
       case 'shopping':
-        return `${theme.colors.secondary}15`;
+        return `${theme.colors?.secondary}15`;
       case 'utilities':
-        return `${theme.colors.gray[500]}15`;
+        return `${theme.colors?.gray[500]}15`;
       case 'entertainment':
-        return `${theme.colors.secondary}15`;
+        return `${theme.colors?.secondary}15`;
       case 'income':
       case 'payment':
-        return `${theme.colors.success}15`;
+        return `${theme.colors?.success}15`;
       default:
-        return theme.colors.text.light;
+        return theme.colors?.text?.light;
     }
   }};
-  color: ${({ $category, theme }) => {
+  color: ${({ $category, theme }: any) => {
     switch ($category.toLowerCase()) {
       case 'groceries':
-        return theme.colors.success;
+        return theme?.colors?.success;
       case 'dining':
-        return theme.colors.warning;
+        return theme?.colors?.warning;
       case 'transportation':
-        return theme.colors.info;
+        return theme?.colors?.info;
       case 'shopping':
-        return theme.colors.secondary;
+        return theme?.colors?.secondary;
       case 'utilities':
-        return theme.colors.gray[500];
+        return theme?.colors?.gray[500];
       case 'entertainment':
-        return theme.colors.secondary;
+        return theme?.colors?.secondary;
       case 'income':
       case 'payment':
-        return theme.colors.success;
+        return theme?.colors?.success;
       default:
-        return theme.colors.text.secondary;
+        return theme?.colors?.text.secondary;
     }
   }};
 `;

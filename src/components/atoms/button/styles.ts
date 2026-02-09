@@ -40,10 +40,10 @@ const chooseVariant = (variant: string, theme: Props) => {
     case 'ghost':
       return css`
         background-color: transparent;
-        color: ${theme.colors.text.primary};
+        color: ${theme.colors?.text?.primary};
         border: 1px solid transparent;
         &:hover:not(:disabled) {
-          background-color: ${theme.colors.text.primary}1a;
+          background-color: ${theme.colors?.text?.primary}1a;
         }
       `;
     case 'danger':

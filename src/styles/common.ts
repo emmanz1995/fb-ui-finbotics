@@ -25,12 +25,12 @@ export const ContentContainer = styled.div`
 export const Title = styled.h1<Props>`
   font-size: 2rem;
   font-weight: 700;
-  color: ${props => props.theme.colors.text.primary};
+  color: ${props => props.theme.colors?.text?.primary};
   margin-bottom: 0.5rem;
 `;
 export const Subtitle = styled.p<Props>`
   font-size: 1rem;
-  color: ${props => props.theme.colors.text.secondary};
+  color: ${props => props.theme.colors?.text?.secondary};
 `;
 
 export const PageHeader = styled.div`

@@ -83,9 +83,6 @@ export const getBalances = async (accountId: string) => {
       params: {
         accountId,
       },
-      headers: authHeader(
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMWZhNzJiMy04ZTFmLTQ5ODYtODcyMS02YWQ2M2I4ODljYTkiLCJ1c2VybmFtZSI6ImVtbWFuejE5OTUiLCJpYXQiOjE3NjY3Nzg3NjIsImV4cCI6MTc2Njg2NDc2Mn0.zOXqE4W_K7qjTrOtXFvDVO7ZksfBbGZJV9jhfDZ60pM'
-      ),
     });
     return response.data;
   } catch (err: Error | unknown) {
@@ -169,7 +166,6 @@ export const onUpdateAccountDetails = async (id: string, ownerName: string) => {
       data: {
         ownerName,
       },
-      headers: AuthorizationHeader,
     });
 
     return data;

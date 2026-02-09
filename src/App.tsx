@@ -5,6 +5,7 @@ import Institutions from './pages/Institutions';
 import CallbackPage from './pages/Callback';
 import Dashboard from './pages/Dashboard';
 import Transactions from './pages/Transactions';
+import CreatePayment from './pages/CreatePayment';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           path="/view-transactions/:accountId"
           element={<Transactions />}
         />
+        <Route path="/make-payments" element={<CreatePayment />} />
       </Routes>
     </>
   );

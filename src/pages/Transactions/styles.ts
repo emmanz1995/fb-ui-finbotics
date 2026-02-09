@@ -9,6 +9,13 @@ export const FilterFlex = styled.span`
   display: flex;
   align-items: left;
   justify-content: space-between;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+  // display: grid;
+  // grid-template-columns: 2fr 1fr;
+  // gap: 2rem;
+  // justify-content: space-between;
   padding: 15px 0;
 `;
 export const SmallSelectionWrapper = styled.span`
