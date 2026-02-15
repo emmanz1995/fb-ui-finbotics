@@ -47,7 +47,7 @@ import {
   TransactionMeta,
   IconContainer,
 } from './styles';
-import { extractAccountNumber } from '../../helpers';
+import { extractAccountNumber, toUppercaseFirstLetter } from '../../helpers';
 import Button from '../../components/atoms/button';
 
 interface ResourceProps {
@@ -184,7 +184,7 @@ const Dashboard: FC = () => {
           <AccountDetailsSection>
             <AccountDetail>
               <Subtitle>Account Owner</Subtitle>
-              <h4>{detail.ownerName}</h4>
+              <h4>{toUppercaseFirstLetter(detail.ownerName)}</h4>
             </AccountDetail>
             <AccountDetail>
               <Subtitle>Account Number</Subtitle>

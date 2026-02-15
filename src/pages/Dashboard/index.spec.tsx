@@ -28,7 +28,7 @@ describe('Dashboard func', () => {
       id: 'abc-123',
       resourceId: '0a3b1856-a620-433f-928b-d4ce4c835c74',
       currency: 'GBP',
-      ownerName: 'Emmanuel Okuchukwu',
+      ownerName: 'Emmanuel okuchukwu',
       scan: '11111122222222',
       accountType: 'CACC',
       usage: 'PRIV',
