@@ -12,6 +12,7 @@
     "format": "prettier --write '{src,tests}/**/*.{ts,tsx}'"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.98.0",
     "axios": "^1.11.0",
     "formik": "^2.4.9",
     "lodash": "^4.17.21",
