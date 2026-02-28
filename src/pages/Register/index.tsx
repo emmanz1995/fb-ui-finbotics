@@ -1,7 +1,7 @@
-import { supabaseClient } from "../../lib";
+import { supabaseClient } from '../../lib';
 
-import Button from "../../components/atoms/button";
-import Input from "../../components/atoms/input";
+import Button from '../../components/atoms/button';
+import Input from '../../components/atoms/input';
 
 const Register = () => {
   return (
@@ -18,12 +18,14 @@ const Register = () => {
             <Input placeholder="******************" />
           </div>
           <div>
-            <Button fullWidth="full" variant="primary">Login</Button>
+            <Button fullWidth="full" variant="primary">
+              Login
+            </Button>
           </div>
         </form>
       </div>
     </div>
-  );;
+  );
 };
 
 export default Register;
